@@ -14,7 +14,7 @@ const Home = () => {
       <Nav/>
       <div className='md:mt-20 md:pt-0 pt-24'>
         <Hero/>
-        <Start/>
+        <Start />
         <About/>
         <Benefits/>
         <Advantages/>

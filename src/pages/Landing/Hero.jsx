@@ -2,6 +2,8 @@ import React from 'react';
 import bg from "../../components/assets/images/hero_bg.webp";
 import { MdArrowRightAlt, MdMenuOpen } from "react-icons/md";
 import Widget from '../../components/assets/common/Widget';
+import { Link } from 'react-router-dom';
+
 
 const Hero = () => {
   return (
@@ -25,10 +27,12 @@ const Hero = () => {
                 <p className='md:w-1/3 w-full' data-aos="fade-right"  data-aos-duration="1000" data-aos-delay="600">Embark on a transformative journey to financial mastery. Unveil the secrets of wealth creation and tap into infinite potential.</p>
             </div>
             <div className="flex md:mt-16 mt-10">
-              <button data-aos="fade-up" data-aos-duration="3000" data-aos-delay="900" className='bg-white text-black flex space-x-1 py-2 px-5 rounded-lg'>
-                <p className='font-semibold text-sm md:text-base font-Montserrat'>Start Your Epic Journey</p>
-                <MdArrowRightAlt className='font-light ' size={25}/>
-              </button>
+              <Link to='/auth'>
+                <button data-aos="fade-up" data-aos-duration="3000" data-aos-delay="900" className='bg-white text-black flex space-x-1 py-2 px-5 rounded-lg'>
+                  <p className='font-semibold text-sm md:text-base font-Montserrat'>Start Your Epic Journey</p>
+                  <MdArrowRightAlt className='font-light ' size={25}/>
+                </button>
+              </Link>
             </div>
        </div>
        <div className='md:mt-0 mt-32'>

@@ -38,7 +38,7 @@ const Admin = () => {
 
 export default Admin;
 
-{
+// {
   /* <div className="flex justify-between mb-6 uppercase font-semibold text-sm pt-32">
 <Link
   className="p-2 bg-secondary text-white"
@@ -58,5 +58,5 @@ export default Admin;
 >
   All Users
 </Link>
-</div> */
-}
+// </div> */
+// }

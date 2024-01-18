@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { GiPhone } from 'react-icons/gi';
+import Logo from '../../components/assets/common/Logo';
 
 const Auth = () => {
     const tabs = ['Sign Up', 'Log In']; // Replace with your tab titles
@@ -21,9 +23,9 @@ const Auth = () => {
         });
       };
     
-      const { name, email, password } = formData;
+      const { name, email, phone, password } = formData;
     
-      const isFormFilled = name !== '' && email !== '';
+      const isFormFilled = name !== '' && email !== '' && password !== '' && phone !== '';
 
     const loginForm = (
       <div className='py-10 font-Poppins text-white/80'>
@@ -83,6 +85,7 @@ const Auth = () => {
     
       const signUpForm = (
         <div className='py-10 font-Poppins text-white/80'>
+          
             <div className=''>
                 <h1 className='text-xl'><span className='text-[#0052FF]'>Create</span> a new account</h1>
                 <p className="mr-10 font-normal text-gray-200 py-5">Create a new 
@@ -123,6 +126,38 @@ const Auth = () => {
                         value={email}
                         onChange={handleInputChange}/>
                     </div>
+                    <div>
+                        <label 
+                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                        for="name">Phone</label>
+                        <input 
+                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                        id="phone" 
+                        placeholder="999-999-999" 
+                        type="text" 
+                        name="phone"
+                        value={phone}
+                        onChange={handleInputChange}/>
+                    </div>
+                    <div>
+                        <label 
+                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                        for="name">Password</label>
+                        <input 
+                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                        id="password" 
+                        placeholder='xxxxx'
+                        type="password" 
+                        name="password"
+                        value={password}
+                        onChange={handleInputChange}/>
+                    </div>
                 </div>
                 <div className="flex justify-between">
                     <button 
@@ -142,7 +177,7 @@ const Auth = () => {
       const tabContents = [signUpForm, loginForm];
 
   return (
-    <div className='w-full h-screen flex justify-center items-center bg-[#0a0a0a] text-white default_cursor_cs default_cursor_land'>
+    <div className='w-full h-[130vh] pt-2d flex justify-center items-center bg-[#0a0a0a] text-white default_cursor_cs default_cursor_land'>
         <div className="hidden auth-container w-[80vw] md:w-[40vw] p-4 rounded-md bg-[#111] border-white/10 border">
             <div className="cont w-full default_cursor_cs default_cursor_land">
                 <div className="icon-cont flex justify-center items-center w-full default_cursor_cs default_cursor_land">
@@ -184,6 +219,9 @@ const Auth = () => {
         </div>
 
         <div className="flex flex-col md:w-[40%] md:px-0 px-5 font-Poppins">
+          <div className='pb-5 flex justify-center'>
+            <Logo/>
+          </div>
       <div className="h-10 items-center justify-center rounded-md p-1 text-muted-foreground w-full grid grid-cols-2 font-bold bg-[#111]">
         {tabs.map((tab, index) => (
           <button

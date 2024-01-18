@@ -1,5 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import { MdArrowRightAlt } from "react-icons/md";
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 
 const Nav = () => {
@@ -19,8 +21,8 @@ const Nav = () => {
       <nav className={`bg-black w-full mx-auto top-0 transition-all duration-300 z-10 ${visible ? 'py-5 fixed' : '-py-32'}`}>
         <div className="relative px-5">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className='text-3xl font-Lobster font-bold tracking-wider text-blue-700'>Logo</h1>
+            <div className=''>
+              <Logo/>
             </div>
             <div className="md:hidden hidden lg:flex space-x-4 text-white text-sm">
               <a href="#home" className="">Home</a>
@@ -31,10 +33,12 @@ const Nav = () => {
               <a href="#contact">FAQS</a>
             </div>
             <div className="flex space-x-4 items-center">
+              <Link to='/auth'>
               <button className='bg-blue-700 text-white flex space-x-1 py-2 px-5 rounded-lg'>
                 <p className='font-semibold'>Get started</p>
                 <MdArrowRightAlt className='font-light ' size={25}/>
               </button>
+              </Link>
             </div>
             {/* <div className="flex space-x-4 items-center">
               <div className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center">5</div>

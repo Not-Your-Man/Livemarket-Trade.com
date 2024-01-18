@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from './Logo';
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
                 <div class="grid1 my-10 default_cursor_cs default_cursor_land">
                     <section class="broker-name text-3xl my-4 default_cursor_cs default_cursor_land">
                         {/* The Logo */}
-                        <h1 className='text-3xl font-Lobster font-bold tracking-wider text-blue-700'>Logo</h1>
+                        <Logo/>
                     </section>
                     <section class="broker-writeup text-sm text-white/60">
                         Livemarkets is a financial investment company established by a group of professional traders and investors, 
