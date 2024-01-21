@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdArrowRightAlt, MdMenuOpen } from "react-icons/md";
 import chart from "../../components/assets/images/chart.webp"
+import { Link } from 'react-router-dom';
 
 
 const Benefits = () => {
@@ -30,10 +31,12 @@ const Benefits = () => {
                     </p>
                 </div>
                 <div>
+                    <Link to= "/Auth">
                     <button className='bg-[#0052FF] mt-16 flex space-x-3 text-white rounded-lg px-5 py-3 '>
                         <p>Start enjoying benefits</p> 
                         <MdArrowRightAlt size={25}/>
                     </button>
+                    </Link>
                 </div>
             </div>
 

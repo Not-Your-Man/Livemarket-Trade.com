@@ -25,12 +25,12 @@ const Nav = () => {
               <Logo/>
             </div>
             <div className="md:hidden hidden lg:flex space-x-4 text-white text-sm">
-              <a href="#home" className="">Home</a>
-              <a href="#about">Getting-started</a>
-              <a href="#services">About-us</a>
-              <a href="#contact">Features & Benefits</a>
-              <a href="#contact">Advantages</a>
-              <a href="#contact">FAQS</a>
+            <Link to= "/">Home</Link>
+              <Link to= '/auth'>Getting-started</Link>
+              <Link to= "/About">About-us</Link>
+              <Link to= "/Benefits">Features & Benefits</Link>
+              <Link to= "/Advantages"> Advantages</Link>
+              <Link to= '/faq'>FAQS</Link>
             </div>
             <div className="flex space-x-4 items-center">
               <Link to='/auth'>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MdArrowRightAlt, MdMenuOpen } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 
 const Start = () => {
@@ -32,10 +33,12 @@ const Start = () => {
                         <p data-aos="fade-right" className='text-sm text-gray-200'>We all have to start somewhere. Let us help get you on the right track as you start your investing journey. With this innovative platform you'll be ready to start in no time. The fund is started in literally several minutes with minimal costs using blockchain-based infrastructure that infos. We believe it is incredibly important to redistribute this power & profitability.</p>
                     </div>
                     <div>
+                        <Link to="/Auth">
                         <button data-aos="fade-up" className='bg-[#0052FF] md:mt-16 mt-10 flex space-x-3 text-white font-semibold rounded-lg px-5 py-3 '>
                             <p>Create an account</p> 
                             <MdArrowRightAlt size={25}/>
                         </button>
+                        </Link>
                     </div>
                 </div>
                 <div className='md:w-1/3 space-y-3'>

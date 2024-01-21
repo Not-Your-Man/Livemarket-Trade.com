@@ -1,31 +1,94 @@
-import React, {useState} from 'react';
-import { GiPhone } from 'react-icons/gi';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/assets/common/Logo';
 
 const Auth = () => {
-    const tabs = ['Sign Up', 'Log In']; // Replace with your tab titles
-    const [activeTab, setActiveTab] = useState(0);
-  
-    const changeTab = (index) => {
-      setActiveTab(index);
-    };
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-      });
-    
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
-      };
-    
-      const { name, email, phone, password } = formData;
-    
-      const isFormFilled = name !== '' && email !== '' && password !== '' && phone !== '';
+  const [activeTab, setActiveTab] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+
+  const tabs = ['Sign Up', 'Log In'];
+
+  const changeTab = (index) => {
+    setActiveTab(index);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'email' && value.includes('@')) {
+      const [username, domain] = value.split('@');
+      const formattedValue = `${username}@${domain.toLowerCase()}`;
+
+      setFormData((prevData) => ({
+        ...prevData,
+        email: formattedValue,
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const { name, email, phone, password } = formData;
+
+  const isFormFilled = name !== '' && email !== '' && password !== '' && phone !== '';
+//NEW CODE
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post(
+        'https://aucitydbserver.onrender.com/api/signup',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'Signup failed');
+      }
+
+      changeTab(1);
+    } catch (error) {
+      setError(error.message || 'An error occurred during signup');
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        'https://aucitydbserver.onrender.com/api/login',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'Login failed');
+      }
+
+      console.log('Login successful');
+      navigate('/dashboard');
+    } catch (error) {
+      setError(error.message || 'An error occurred during login');
+    }
+  };
+//END OF NEW CODE
 
     const loginForm = (
       <div className='py-10 font-Poppins text-white/80'>
@@ -39,20 +102,21 @@ const Auth = () => {
       </div>
        <form className=''>
           <div className='py-5 space-y-10'>
-              <div>
-                  <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                  for="name">Email:</label>
-                  <input 
-                  className="flex border border-input file:border-0 file:bg-transparent 
-                  file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                  focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                  py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all capitalize rounded-lg text-sm" 
-                  id="email" 
-                  type="email" 
-                  name="email"  
-                  value={email}
-                  onChange={handleInputChange}/>
-              </div>
+          <div>
+                        <label 
+                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                        for="name">Email Address</label>
+                        <input 
+                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                        id="name"  
+                        type="email" 
+                        name="email"
+                        value={email}
+                        onChange={handleInputChange}/>
+                    </div>
               <div>
                   <label 
                   className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
@@ -70,14 +134,16 @@ const Auth = () => {
               </div>
           </div>
           <div className="flex justify-between">
-              <button 
-              className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
-              focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
-              disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold" 
-              type="button"
-              >
-                <div className="py-2 flex items-center justify-center">Log In</div>
-              </button>
+          <button
+  className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
+    focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
+    disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold"
+  type="button"
+  onClick={handleLogin}  // Call handleLogin onClick
+  disabled={!isFormFilled}
+>
+  <div className="py-2 flex items-center justify-center">Log In</div>
+</button>
           </div>
       </form>
   </div>
@@ -160,14 +226,16 @@ const Auth = () => {
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <button 
-                    className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
-                    focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
-                    disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold" 
-                    type="button"
-                    disabled={!isFormFilled}>
-                        <div className="py-2 flex items-center justify-center">Proceed</div>
-                    </button>
+                <button className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
+                focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
+                disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold"
+                type="button"
+                onClick={handleSignup}  // Call handleSignup onClick
+                disabled={!isFormFilled}
+              >
+  <div className="py-2 flex items-center justify-center">Proceed</div>
+</button>
+
                 </div>
             </form>
         </div>
@@ -175,7 +243,7 @@ const Auth = () => {
       );
     
       const tabContents = [signUpForm, loginForm];
-
+     
   return (
     <div className='w-full h-[130vh] pt-2d flex justify-center items-center bg-[#0a0a0a] text-white default_cursor_cs default_cursor_land'>
         <div className="hidden auth-container w-[80vw] md:w-[40vw] p-4 rounded-md bg-[#111] border-white/10 border">
@@ -207,14 +275,6 @@ const Auth = () => {
                         </div>
                     </button>
                 </div>
-                <a href="/"> 
-                    <div className=" w-full p-2 mt-1 default_pointer_cs default_pointer_land">
-                        <div className="btn btn-outline px-4 py-3 w-full flex items-center justify-center text-center bg-[#222] text-white/80 hover:text-black 
-                        font-semibold text-sm rounded-xl default_pointer_cs default_pointer_land">
-                            <p>Back to home</p>
-                        </div>
-                    </div>
-                </a>
             </div>
         </div>
 
