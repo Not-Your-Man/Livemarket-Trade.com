@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../components/assets/common/Logo';
 
+import Logo from '../../components/assets/common/Logo';
+import SyncLoader from 'react-spinners/SyncLoader';
+import { css } from '@emotion/react';
+
+
+
+// Define LoadingSpinner as a separate component
+const LoadingSpinner = () => {
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red; // Customize the color if needed
+  `;
+
+  return (
+    <div className="loading-spinner">
+      {/* Use a spinner component from a library like react-spinners */}
+      <SyncLoader css={override} size={10} color={'#123abc'} loading={true} />
+    </div>
+  );
+};
 const Auth = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [formData, setFormData] = useState({
@@ -42,32 +62,58 @@ const Auth = () => {
 
   const isFormFilled = name !== '' && email !== '' && password !== '' && phone !== '';
 //NEW CODE
+  // const handleSignup = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       'http://localhost:3001/signup',
+  //       formData,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       }
+  //     );
+
+  //     if (!response.data.success) {
+  //       throw new Error(response.data.message || 'Signup failed');
+  //     }
+
+  //     changeTab(1);
+  //   } catch (error) {
+  //     setError(error.message || 'An error occurred during signup');
+  //   }
+  // };
+
+  
+
+  const [loading, setLoading] = useState(false);
   const handleSignup = async () => {
     try {
-      const response = await axios.post(
-        'https://aucitydbserver.onrender.com/api/signup',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      setLoading(true);
+      const response = await axios.post('https://aucitydbserver.onrender.com/api/signup', formData);
 
-      if (!response.data.success) {
-        throw new Error(response.data.message || 'Signup failed');
+      // Check if registration was successful
+      if (response.status === 201) {
+        setTimeout(() => {
+          setActiveTab(1)
+          setLoading(false); // Navigate to the login tab
+       }, 500);
+        //changeTab(1);
+      } else {
+        setError('Email already registered');
+        setLoading(false);
       }
-
-      changeTab(1);
     } catch (error) {
-      setError(error.message || 'An error occurred during signup');
+      console.error(error);
+      setError('Email already registered');
+      setLoading(false);
     }
-  };
+  }
 
   const navigate = useNavigate();
-
   const handleLogin = async () => {
     try {
+      setLoading(true); // Set loading to true when starting the login process
       const response = await axios.post(
         'https://aucitydbserver.onrender.com/api/login',
         formData,
@@ -77,7 +123,7 @@ const Auth = () => {
           },
         }
       );
-
+      console.log(response.data);//server checker
       if (!response.data.success) {
         throw new Error(response.data.message || 'Login failed');
       }
@@ -86,6 +132,8 @@ const Auth = () => {
       navigate('/dashboard');
     } catch (error) {
       setError(error.message || 'An error occurred during login');
+    } finally {
+      setLoading(false); // Set loading to false after login attempt
     }
   };
 //END OF NEW CODE
@@ -225,6 +273,11 @@ const Auth = () => {
                         onChange={handleInputChange}/>
                     </div>
                 </div>
+                {error && (
+  <div className="text-red-500">
+    {error === 'Email already registered' ? 'Email already registered' : error}
+  </div>
+)}
                 <div className="flex justify-between">
                 <button className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
                 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
@@ -308,8 +361,8 @@ const Auth = () => {
         ))}
       </div>
     </div>
+    {loading && <LoadingSpinner />} {/* Show loading spinner when loading is true */}
     </div>
-  )
-}
-
+  );
+};
 export default Auth;
