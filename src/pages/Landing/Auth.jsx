@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 import Logo from '../../components/assets/common/Logo';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { css } from '@emotion/react';
@@ -87,89 +86,249 @@ const Auth = () => {
   
 
   const [loading, setLoading] = useState(false);
-  const handleSignup = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post('https://aucitydbserver.onrender.com/api/signup', formData);
+  // const handleSignup = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post('https://aucitydbserver.onrender.com/api/signup', formData);
 
-      // Check if registration was successful
-      if (response.status === 201) {
-        setTimeout(() => {
-          setActiveTab(1)
-          setLoading(false); // Navigate to the login tab
-       }, 500);
-        //changeTab(1);
-      } else {
-        setError('Email already registered');
+  //     // Check if registration was successful
+  //     if (response.status === 201) {
+  //       setTimeout(() => {
+  //         setActiveTab(1)
+  //         setLoading(false); // Navigate to the login tab
+  //      }, 500);
+  //       //changeTab(1);
+  //     } else {
+  //       setError('Email already registered');
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setError('Email already registered');
+  //     setLoading(false);
+  //   }
+  // }
+
+  const handleSignup = () => {
+    setLoading(true);
+    fetch('https://aucitydbserver.onrender.com/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (response.status === 201) {
+          setTimeout(() => {
+            setActiveTab(1);
+            setLoading(false); // Navigate to the login tab
+          }, 500);
+        } else {
+          // setError('Email already registered');
+          setLoading(false);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        // setError('Email already registered');
         setLoading(false);
-      }
-    } catch (error) {
-      console.error(error);
-      setError('Email already registered');
-      setLoading(false);
-    }
-  }
+      });
+  };
+  
 
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    try {
-      setLoading(true); // Set loading to true when starting the login process
-      const response = await axios.post(
-        'https://aucitydbserver.onrender.com/api/login',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      console.log(response.data);//server checker
-      if (!response.data.success) {
-        throw new Error(response.data.message || 'Login failed');
-      }
-
-      console.log('Login successful');
-      navigate('/dashboard');
-    } catch (error) {
-      setError(error.message || 'An error occurred during login');
-    } finally {
-      setLoading(false); // Set loading to false after login attempt
-    }
-  };
+  //  const handleLogin = async () => {
+  //   try {
+  //     setLoading(true); // Set loading to true when starting the login process
+  //     const response = await axios.post(
+  //       'https://aucitydbserver.onrender.com/api/login',
+  //       formData,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       } 
+  //     );
+  //     console.log(response.data);//server checker
+  //     if (!response.data.success) {
+  //       throw new Error(response.data.message || 'Login failed');
+  //     } else {
+  //       console.log('Login successful');
+  //       navigate("/dashboard");
+  //     }
+      
+  //   } catch (error) {
+  //     setError(error.message || 'An error occurred during login');
+  //   } finally {
+  //     setLoading(false); // Set loading to false after login attempt
+  //   }
+  // };
 //END OF NEW CODE
+const handleLogin = () => {
+  fetch('https://aucitydbserver.onrender.com/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (!response) {
+        throw new Error('No response received');
+      }
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("some data", formData); // Server checker
+      if (data) {
+        // console.log('Login successful');
+        navigate('/dashboard'); // Navigate to dashboard when login is successful
+      }
+    })
+    .catch((error) => {
+      setError(error.message || 'An error occurred during login');
+    });
+};
 
-    const loginForm = (
-      <div className='py-10 font-Poppins text-white/80'>
-      <div className=''>
-          <h1 className='text-xl'><span className='text-[#0052FF]'>Sign-In</span> to your account</h1>
-          <p className="mr-10 font-normal text-gray-200 py-5">
-            Continue where you left off by logging in, we keep 
-          <span className=" text-[#0052FF] font-bold"> simple </span>
-           of your every progress.
-          </p>
-      </div>
-       <form className=''>
-          <div className='py-5 space-y-10'>
-          <div>
-                        <label 
-                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                        for="name">Email Address</label>
-                        <input 
-                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
-                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
-                        id="name"  
-                        type="email" 
-                        name="email"
-                        value={email}
-                        onChange={handleInputChange}/>
-                    </div>
+
+
+const tabContents = [
+  //const signUpForm = 
+  (
+    <div className='py-10 font-Poppins text-white/80'>
+      
+        <div className=''>
+            <h1 className='text-xl'><span className='text-[#0052FF]'>Create</span> a new account</h1>
+            <p className="mr-10 font-normal text-gray-200 py-5">Create a new 
+                <span className="text-[#0052FF] font-bold"> account</span> to enjoy immense benefits and financial freedom, it's easy, it's 
+                <span className=" text-[#0052FF] font-bold"> simple</span>
+            </p>
+        </div>
+         <form className='border-t-4 border-gray-500 border-opacity-5'>
+            <div className='py-5 space-y-10'>
+                <div>
+                    <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                    for="name">Legal Full Name</label>
+                    <input 
+                    className="flex border border-input ring-offset-background file:border-0 file:bg-transparent 
+                    file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                    focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                    py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all capitalize rounded-lg text-sm" 
+                    id="name" 
+                    placeholder="John Doe" 
+                    type="text" 
+                    name="name"  
+                    value={name}
+                    onChange={handleInputChange}/>
+                </div>
+                <div>
+                    <label 
+                    className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                    for="name">Email Address</label>
+                    <input 
+                    className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                    file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                    focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                    py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                    id="name" 
+                    placeholder="johndoe@example.com" 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    onChange={handleInputChange}/>
+                </div>
+                <div>
+                    <label 
+                    className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                    for="name">Phone</label>
+                    <input 
+                    className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                    file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                    focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                    py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                    id="phone" 
+                    placeholder="999-999-999" 
+                    type="text" 
+                    name="phone"
+                    value={phone}
+                    onChange={handleInputChange}/>
+                </div>
+                <div>
+                    <label 
+                    className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                    for="name">Password</label>
+                    <input 
+                    className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                    file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                    focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                    py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                    id="password" 
+                    placeholder='xxxxx'
+                    type="password" 
+                    name="password"
+                    value={password}
+                    onChange={handleInputChange}/>
+                </div>
+            </div>
+            {error && (
+<div className="text-red-500">
+{error === 'Email already registered' ? 'Email already registered' : error}
+</div>
+)}
+            <div className="flex justify-between">
+            <button className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
+            focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
+            disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold"
+            type="button"
+            onClick={handleSignup}  // Call handleSignup onClick
+            disabled={!isFormFilled}
+          >
+<div className="py-2 flex items-center justify-center">Proceed</div>
+</button>
+
+            </div>
+        </form>
+    </div>
+   
+  ),
+  
+  // const loginForm =
+    (
+        <div className='py-10 font-Poppins text-white/80'>
+          <div className=''>
+            <h1 className='text-xl'><span className='text-[#0052FF]'>Sign-In</span> to your account</h1>
+            <p className="mr-10 font-normal text-gray-200 py-5">
+              Continue where you left off by logging in, we keep 
+              <span className=" text-[#0052FF] font-bold"> simple </span>
+              of your every progress.
+            </p>
+          </div>
+          <form className=''>
+            <div className='py-5 space-y-10'>
               <div>
-                  <label 
+                <label 
                   className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                  for="name">Password:</label>
-                  <input 
+                  htmlFor="name">Email Address</label>
+                <input 
+                  className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
+                  file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
+                  focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
+                  py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
+                  id="name"  
+                  type="email" 
+                  name="email"
+                  value={email}
+                  onChange={handleInputChange}/>
+              </div>
+              <div>
+                <label 
+                  className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
+                  htmlFor="password">Password:</label>
+                <input 
                   className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
                   file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
                   focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
@@ -180,122 +339,23 @@ const Auth = () => {
                   value={password}
                   onChange={handleInputChange}/>
               </div>
-          </div>
-          <div className="flex justify-between">
-          <button
-  className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
-    focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
-    disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold"
-  type="button"
-  onClick={handleLogin}  // Call handleLogin onClick
-  disabled={!isFormFilled}
->
-  <div className="py-2 flex items-center justify-center">Log In</div>
-</button>
-          </div>
-      </form>
-  </div>
-      );
-    
-      const signUpForm = (
-        <div className='py-10 font-Poppins text-white/80'>
-          
-            <div className=''>
-                <h1 className='text-xl'><span className='text-[#0052FF]'>Create</span> a new account</h1>
-                <p className="mr-10 font-normal text-gray-200 py-5">Create a new 
-                    <span className="text-[#0052FF] font-bold"> account</span> to enjoy immense benefits and financial freedom, it's easy, it's 
-                    <span className=" text-[#0052FF] font-bold"> simple</span>
-                </p>
             </div>
-             <form className='border-t-4 border-gray-500 border-opacity-5'>
-                <div className='py-5 space-y-10'>
-                    <div>
-                        <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                        for="name">Legal Full Name</label>
-                        <input 
-                        className="flex border border-input ring-offset-background file:border-0 file:bg-transparent 
-                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all capitalize rounded-lg text-sm" 
-                        id="name" 
-                        placeholder="John Doe" 
-                        type="text" 
-                        name="name"  
-                        value={name}
-                        onChange={handleInputChange}/>
-                    </div>
-                    <div>
-                        <label 
-                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                        for="name">Email Address</label>
-                        <input 
-                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
-                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
-                        id="name" 
-                        placeholder="johndoe@example.com" 
-                        type="email" 
-                        name="email"
-                        value={email}
-                        onChange={handleInputChange}/>
-                    </div>
-                    <div>
-                        <label 
-                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                        for="name">Phone</label>
-                        <input 
-                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
-                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
-                        id="phone" 
-                        placeholder="999-999-999" 
-                        type="text" 
-                        name="phone"
-                        value={phone}
-                        onChange={handleInputChange}/>
-                    </div>
-                    <div>
-                        <label 
-                        className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-red-00 font-bold text-sm mb-2 capitalize" 
-                        for="name">Password</label>
-                        <input 
-                        className="flex lowercase border border-input ring-offset-background file:border-0 file:bg-transparent 
-                        file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 
-                        focus-visible:ring-[#0052FF] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 w-full px-4 
-                        py-1 bg-[#111111] text-gray-200 border-none h-11 focus:border-none transition-all rounded-lg text-sm" 
-                        id="password" 
-                        placeholder='xxxxx'
-                        type="password" 
-                        name="password"
-                        value={password}
-                        onChange={handleInputChange}/>
-                    </div>
-                </div>
-                {error && (
-  <div className="text-red-500">
-    {error === 'Email already registered' ? 'Email already registered' : error}
-  </div>
-)}
-                <div className="flex justify-between">
-                <button className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
+            <div className="flex justify-between">
+              <button
+                className="rounded-lg text-sm ring-offset-background transition-colors focus-visible:outline-none 
                 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
                 disabled:opacity-50 hover:bg-[#0051ff67] px-4 py-2 w-full flex items-center justify-center bg-[#0052FF] text-white h-12 font-bold"
                 type="button"
-                onClick={handleSignup}  // Call handleSignup onClick
-                disabled={!isFormFilled}
+                onClick={handleLogin}  // Call handleLogin onClick
+                disabled={!email || !password} // Disable only if email or password is empty
               >
-  <div className="py-2 flex items-center justify-center">Proceed</div>
-</button>
-
-                </div>
-            </form>
+                <div className="py-2 flex items-center justify-center">Log In</div>
+              </button>
+            </div>
+          </form>
         </div>
-       
-      );
-    
-      const tabContents = [signUpForm, loginForm];
+      ), 
+               ];//New
      
   return (
     <div className='w-full h-[130vh] pt-2d flex justify-center items-center bg-[#0a0a0a] text-white default_cursor_cs default_cursor_land'>

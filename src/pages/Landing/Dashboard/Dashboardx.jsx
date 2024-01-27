@@ -47,7 +47,7 @@ const Dashboardx = () => {
             </svg>
           </p>
         </div>
-        <div class="flex items-center justify-between border-y-2 my-2 py-6 px-4">
+        <div className="flex items-center justify-between border-y-2 my-2 py-6 px-4">
           <p class="rounded-full w-8 h-8 flex justify-center items-center bg-sky-600 mr-6">
             <svg
               stroke="currentColor"
@@ -199,7 +199,7 @@ const Dashboardx = () => {
         <div className="md:flex relative">
           {/* left Section */}
           <section
-            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-white md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
+            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-black md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
             style={{
               animation: "0.4 ease 0s 1 normal none running overlay-fade-in",
             }}
@@ -244,17 +244,17 @@ const Dashboardx = () => {
                 </svg>
               </div>
               <div className="py-6 px-1 mb-5 w-11/12 hidden md:block">
-                <div class="uppercase mt-3  text-xs tracking-wide text-gray-700 font-semibold tra">
+                <div class="uppercase mt-3  text-xs tracking-wide text-white font-semibold tra">
                   Main account Balance
                 </div>
                 <p class="text-2xl font-semibold text-red-600">
                   $0 <span class="text-lg">USD</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Deposit</span>
                   <span>$0 usd</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Withdraw</span>
                   <span>$0 usd</span>
                 </p>
@@ -273,7 +273,7 @@ const Dashboardx = () => {
                   </Link>
                 </p>
               </div>
-              <div className="w-11/12 font-medium text-slate-700 text-sm">
+              <div className="w-11/12 font-medium text-white text-sm">
                 <div class="tracking mt-10 uppercase text-xs font-bold pl-3 tracking-wider">
                   Menu
                 </div>
@@ -316,10 +316,10 @@ const Dashboardx = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Deposit</span>
+                    <span className="text-white">Deposit</span>
                   </Link>
                   <Link
-                    class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
+                    className="flex text-white hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
                     to="/withdraw"
                     style={{ color: "rgb(82, 100, 132)" }}
                   >
@@ -338,7 +338,7 @@ const Dashboardx = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Withdraw</span>
+                    <span className="text-white">Withdraw</span>
                   </Link>
                   <p
                     class="flex text-[#526484] hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
@@ -355,7 +355,7 @@ const Dashboardx = () => {
                     >
                       <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
                     </svg>
-                    <span>Sign Out</span>
+                    <span className="text-white">Sign Out</span>
                   </p>
                 </ul>
               </div>
@@ -414,11 +414,11 @@ const Dashboardx = () => {
             {/* Main-content */}
             <section className="lg:bg-black">
               <div class="px-6 pt-6">
-                <p class="text-gray-500">Welcome!</p>
-                <p class="text-xl lg:text-3xl mt-3 font-medium pb-0 mb-0 capitalize">
+                <p class="text-white">Welcome!</p>
+                <p class="text-xl lg:text-3xl mt-3 font-semibold text-white pb-0 mb-0 capitalize">
                   Username
                 </p>
-                <p class="text-xs lg:text-sm text-slate-700 pb-3 font-medium">
+                <p class="text-xs lg:text-sm text-white pb-3 font-medium">
                   useremail@yahoo.com
                 </p>
                 <p class="text-gray-700 text-sm lg:text-sm">
@@ -429,8 +429,8 @@ const Dashboardx = () => {
               <div className="md:flex md:flex-wrap md:mt-12">
                 <div class="py-6 px-3  md:w-[300px] shadow-lg my-5 mx-5 border border-gray-300 border-b-4 border-b-red-400 ">
                   <p class="flex justify-between items-center">
-                    <div class="tooltip text-black" data-tip="hello">
-                      <span>Available Balance</span>
+                    <div class="tooltip text-white" data-tip="hello">
+                      <span >Available Balance</span>
                     </div>
                     <svg
                       stroke="currentColor"
@@ -478,7 +478,7 @@ const Dashboardx = () => {
                 </div>
                 <div class="py-6 px-3 md:w-[300px] shadow-lg my-5 mx-5 border border-gray-300 border-b-4 border-b-sky-800 ">
                   <p class="flex justify-between items-center">
-                    <span>Earnings</span>
+                    <span className="text-white">Earnings</span>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
@@ -497,7 +497,7 @@ const Dashboardx = () => {
                 </div>
                 <div class="py-6 px-3 shadow-lg my-5 mx-5 border border-gray-300 border-b-4 border-b-sky-800 md:w-[300px]">
                   <p class="flex justify-between items-center">
-                    <span>Network Fee</span>
+                    <span className="text-white">Network Fee</span>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
@@ -516,7 +516,7 @@ const Dashboardx = () => {
                 </div>
                 <div class="py-6 px-3 shadow-lg my-5 mx-5 border border-gray-300 border-b-4 border-b-sky-800 md:w-[300px]">
                   <p class="flex justify-between items-center">
-                    <span>Total Deposit</span>
+                    <span className="text-white">Total Deposit</span>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
@@ -535,7 +535,7 @@ const Dashboardx = () => {
                 </div>
                 <div class="py-6 px-3 shadow-lg my-5 mx-5 border border-gray-300 border-b-4 border-b-yellow-400 md:w-[300px]">
                   <p class="flex justify-between items-center">
-                    <span>Total Withdrawal</span>
+                    <span className="text-white">Total Withdrawal</span>
                     <svg
                       stroke="currentColor"
                       fill="currentColor"
