@@ -1,15 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './Redux/store';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+import './index.css'; // Import your CSS file
 import App from './App';
 // import { ConfigProvider } from "antd";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./Redux/store";
-import 'aos/dist/aos.css'; 
-import AOS from 'aos'; 
-
 AOS.init();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
