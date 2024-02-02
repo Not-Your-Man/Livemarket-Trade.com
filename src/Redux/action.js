@@ -29,3 +29,20 @@ export const setAdUser = (user) => ({
   type: SET_ADUSER,
   payload: user,
 });
+
+// redux/actions/authActions.js
+// export const loginRequest = () => ({
+//   type: 'LOGIN_REQUEST',
+// });
+
+// export const loginSuccess = (user) => ({
+//   type: 'LOGIN_SUCCESS',
+//   payload: user,
+// });
+
+// export const loginFailure = (error) => ({
+//   type: 'LOGIN_FAILURE',
+//   payload: error,
+// });
+
+// // Add similar actions for signup if needed

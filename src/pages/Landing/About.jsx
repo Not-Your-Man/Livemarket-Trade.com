@@ -22,7 +22,7 @@ const About = () => {
         </div>
         <h3 className='lg:text-4xl md:text-3xl text-3xl md:text-center text-left text-white py-5'>We'll help you grow your money.</h3>
         <div className='flex justify-center'>
-            <p className='md:text-center text-left text-white md:w-[39%]'>Livemarkets innovative trading platforms and tools provide the power and reliability you need to feel more confident in your trading.</p>
+            <p className='md:text-center text-left text-white md:w-[39%]'>FirstTradeAucity innovative trading platforms and tools provide the power and reliability you need to feel more confident in your trading.</p>
         </div>
 
         <div className='md:flex md:justify-between md:mx-32 pt-10 grid grid-cols-2 gap-10'>

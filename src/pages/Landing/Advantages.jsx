@@ -154,11 +154,11 @@ const Advantages = () => {
                 <section className="text_section md:px-8 px-2 pt-7">
                     <div className="text_container">
                         <div className="main_text text-xl md:text-2xl lg:text-3xl font-bold mb-6 aos-init aos-animate" data-aos="fade-up">Enhancing 
-                            <span className=" text-[#0052FF]"> Investment</span> Opportunities with Livemarkets Versatile 
+                            <span className=" text-[#0052FF]"> Investment</span> Opportunities with FirstTradeAucity Versatile 
                             <span className=" text-[#0052FF]"> CFD Trading</span>
                         </div>
                         <div data-aos="fade-up" data-aos-delay="100" className="text-sm text-white/80 aos-init">Although trading Forex is a key component of our business,
-                            Livemarkets also offers a diverse range of CFD trading options. With Livemarkets, you can engage in CFD trading across various asset classes, including 
+                            FirstTradeAucity also offers a diverse range of CFD trading options. With FirstTradeAucity, you can engage in CFD trading across various asset classes, including 
                             <span className=" text-[#0052FF] font-bold">Forex, Indices, Shares, Commodities, Metals, Digital Currencies, Bonds, and ETFs</span>. 
                             Our CFD trading platform provides you with access to the biggest global exchanges, including the NASDAQ and NYSE in the United States, along with the 
                             <span className=" text-[#0052FF] font-bold">Australian Stock Exchange (ASX)</span>. 

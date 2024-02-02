@@ -1,4 +1,4 @@
-import { SET_TOKEN, USER_DETAILS, LOGOUT, SET_ADUSER } from "./actionTypes";
+import { SET_TOKEN, USER_DETAILS, LOGOUT, SET_ADUSER, SET_DEPOSIT } from "./actionTypes";
 
 const initialState = {
   token: "",
@@ -21,6 +21,8 @@ const authReducer = (state = initialState, action = {}) => {
       return { ...state, user_details: { ...action.payload } };
     case SET_ADUSER:
       return { ...state, user: { ...action.payload } };
+    case SET_DEPOSIT:
+      return { ...state, deposit: action.payload };
     case LOGOUT:
       return {
         ...state,

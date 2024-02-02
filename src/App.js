@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-// import Homex from "./pages/landingx/Homex";
 import { useSelector } from "react-redux";
 import Home from "./pages/Landing/Home";
 import Signup from "./pages/Landing/Signup";

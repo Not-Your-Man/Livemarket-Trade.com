@@ -163,7 +163,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div class="footer-message py-4 flex justify-center text-white/60 bg-black text-xs md:text-base default_cursor_cs default_cursor_land">© 2024 thelivemarkets.net All Rights Reserved.</div>
+            <div class="footer-message py-4 flex justify-center text-white/60 bg-black text-xs md:text-base default_cursor_cs default_cursor_land">© 2024 first All Rights Reserved.</div>
         </div>
     </div>
   )
