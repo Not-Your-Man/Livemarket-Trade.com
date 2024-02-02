@@ -1,7 +1,7 @@
 import {
   SET_WALLET,
   SET_TOKEN,
-  USER_DETAILS,
+  SET_USER_DETAILS,
   LOGOUT,
   SET_ADUSER,
 } from "./actionTypes";
@@ -16,9 +16,9 @@ export const setToken = (token) => ({
   payload: token,
 });
 
-export const setUserDetails = (details) => ({
-  type: USER_DETAILS,
-  payload: details,
+export const setUserDetails = (userDetails) => ({
+  type: SET_USER_DETAILS,
+  payload: userDetails,
 });
 
 export const logout = () => ({

@@ -29,9 +29,9 @@ const Dashboardx = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const userx = useSelector((state) => state.auth.user_details);
+  const usery = useSelector((state) => state.auth.user);
   const [user, setUser] = useState({
-    ...userx,
+    ...usery,
   });
   console.log({ user });  
 
@@ -396,9 +396,9 @@ const Dashboardx = () => {
 
             {/* Main-content */}
             <div className="">
-              <section className="lg:w-[100%] md:flex md:justify-between md:px-20 px-2 pb-3">
+              <section className="md:flex md:justify-between md:px-20 pb-3">
 
-                <div class="lg:w-[50%] flex plh-6 pt-6 lg:mt-20">
+                <div class="lg:w-[50%] flex plh-6 pt-6 lg:mt-20 md:px-0 px-2">
                   <div className="w-[40%]">
                     <p class="text-gray-500">Welcome!</p>
                   <p class="text-xl lg:text-3xl mt-3 font-medium pb-0 mb-0 capitalize">
@@ -418,7 +418,7 @@ const Dashboardx = () => {
                   </div>
                 </div>
 
-                <div className="lg:w-[50%] md:flex md:justify-end md:mt-12">
+                <div className="lg:w-[50%] md:flex md:justify-end md:mt-12 md:px-0 px-2">
                   <div className="space-y-10">
                     <div className="flex gap-2 px-5 pt-3 rounded-lg text-white bg-black">
                       <div className="flex ">

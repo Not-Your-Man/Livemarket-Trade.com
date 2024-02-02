@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { setUserDetails } from '../../Redux/action';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/assets/common/Logo';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { css } from '@emotion/react';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -109,8 +111,35 @@ const Auth = () => {
   //   }
   // }
 
+  // const handleSignup = () => {
+  //   setLoading(true);
+  //   fetch('https://aucitydbserver.onrender.com/api/signup', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(formData)
+  //   })
+  //     .then(response => {
+  //       if (response.status === 201) {
+  //         setTimeout(() => {
+  //           setActiveTab(1);
+  //           setLoading(false); // Navigate to the login tab
+  //         }, 500);
+  //       } else {
+  //         // setError('Email already registered');
+  //         setLoading(false);
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //       // setError('Email already registered');
+  //       setLoading(false);
+  //     });
+  // };
   const handleSignup = () => {
     setLoading(true);
+  
     fetch('https://aucitydbserver.onrender.com/api/signup', {
       method: 'POST',
       headers: {
@@ -119,52 +148,61 @@ const Auth = () => {
       body: JSON.stringify(formData)
     })
       .then(response => {
-        if (response.status === 201) {
-          setTimeout(() => {
-            setActiveTab(1);
-            setLoading(false); // Navigate to the login tab
-          }, 500);
+        if (response.ok) {
+          return response.json();
+        } else if (response.status === 409) {
+          throw new Error('Email already registered');
         } else {
-          // setError('Email already registered');
-          setLoading(false);
+          throw new Error('Signup failed');
         }
+      })
+      .then(data => {
+        console.log('Signup successful', data);
+        setTimeout(() => {
+          setActiveTab(1);
+          setLoading(false); // Navigate to the login tab
+        }, 500);
       })
       .catch(error => {
         console.error(error);
-        // setError('Email already registered');
+        setError(error.message || 'An error occurred during signup');
         setLoading(false);
       });
   };
   
 
   const navigate = useNavigate();
-  //  const handleLogin = async () => {
-  //   try {
-  //     setLoading(true); // Set loading to true when starting the login process
-  //     const response = await axios.post(
-  //       'https://aucitydbserver.onrender.com/api/login',
-  //       formData,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       } 
-  //     );
-  //     console.log(response.data);//server checker
-  //     if (!response.data.success) {
-  //       throw new Error(response.data.message || 'Login failed');
-  //     } else {
-  //       console.log('Login successful');
-  //       navigate("/dashboard");
-  //     }
-      
-  //   } catch (error) {
-  //     setError(error.message || 'An error occurred during login');
-  //   } finally {
-  //     setLoading(false); // Set loading to false after login attempt
-  //   }
-  // };
+  const dispatch = useDispatch();
+  
 //END OF NEW CODE
+// const handleLogin = () => {
+//   fetch('https://aucitydbserver.onrender.com/api/login', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(formData),
+//   })
+//     .then((response) => {
+//       if (!response) {
+//         throw new Error('No response received');
+//       }
+//       if (!response.ok) {
+//         throw new Error('Login failed');
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log("some data", formData); // Server checker
+//       if (data) {
+//         // console.log('Login successful');
+//         navigate('/dashboard'); // Navigate to dashboard when login is successful
+//       }
+//     })
+//     .catch((error) => {
+//       setError(error.message || 'An error occurred during login');
+//     });
+// };
 const handleLogin = () => {
   fetch('https://aucitydbserver.onrender.com/api/login', {
     method: 'POST',
@@ -173,27 +211,24 @@ const handleLogin = () => {
     },
     body: JSON.stringify(formData),
   })
-    .then((response) => {
-      if (!response) {
-        throw new Error('No response received');
-      }
+    .then(response => {
       if (!response.ok) {
         throw new Error('Login failed');
       }
       return response.json();
     })
-    .then((data) => {
-      console.log("some data", formData); // Server checker
-      if (data) {
-        // console.log('Login successful');
-        navigate('/dashboard'); // Navigate to dashboard when login is successful
-      }
+    .then(data => {
+      const userDetails = data.userDetails;
+
+    // Dispatch the action to update Redux state with user details
+    dispatch(setUserDetails(userDetails));
+      navigate('/dashboard'); // Navigate to dashboard when login is successful
     })
-    .catch((error) => {
+    .catch(error => {
+      console.error(error);
       setError(error.message || 'An error occurred during login');
     });
 };
-
 
 
 const tabContents = [

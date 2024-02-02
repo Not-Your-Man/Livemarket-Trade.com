@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './Redux/store';
+import { store} from './Redux/store';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import './index.css'; // Import your CSS file
@@ -13,19 +13,11 @@ AOS.init();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
+    {/* <PersistGate persistor={persistor}> */}
       <BrowserRouter>
-        {/* <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: "#00b96b",
-            },
-          }}
-        > */}
           <App />
-        {/* </ConfigProvider> */}
       </BrowserRouter>
-    </PersistGate>
+    {/* </PersistGate> */}
   </Provider>
 );
 

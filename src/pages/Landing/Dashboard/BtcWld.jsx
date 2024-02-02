@@ -54,7 +54,7 @@ const BtcWld = () => {
     // }
 
     const response = await fetch(
-      "https://calm-rose-frog-kilt.cyclic.app/withdraw",
+      "https://aucitydbserver.onrender.com/withdraw",
       {
         method: "post",
         headers: { "Content-Type": "application/json" },
