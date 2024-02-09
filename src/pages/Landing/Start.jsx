@@ -24,7 +24,7 @@ const Start = () => {
                             000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z">
                             </path>
                         </svg>
-                        <p className='uppercase tracking-tighter font-semibold text-white'>Getting Started</p>
+                       <Link to='/auth'> <p className='uppercase tracking-tighter font-semibold text-white'>Getting Started</p></Link>
                     </div>
                     <div className='py-3'>
                         <h1 data-aos="fade-right"  className='text-4xl tracking-wider capitalize text-white'>How it <span className='text-[#0052FF]'>works?</span></h1>

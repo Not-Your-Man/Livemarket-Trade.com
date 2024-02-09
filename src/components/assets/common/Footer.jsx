@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -12,7 +13,7 @@ const Footer = () => {
                         <Logo/>
                     </section>
                     <section class="broker-writeup text-sm text-white/60">
-                        Livemarkets is a financial investment company established by a group of professional traders and investors, 
+                       Firstradeaucity is a financial investment company established by a group of professional traders and investors, 
                         who have fore seen the future of International Capital Market. The company has direct contracts with professional 
                         traders and miners around the world that guarantees the best services and ensures profits are made and remitted to investors daily.
                     </section>
@@ -37,7 +38,7 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd">
                                 </path>
                             </svg>
-                            <a href='/auth'> <p class="text-sm capitalize">Getting Started</p> </a>
+                           <Link to='/auth'><p class="text-sm capitalize">Getting Started</p></Link>
                         </div>
                         <div class="flex hover:text-white items-center my-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-white">
@@ -45,7 +46,7 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd">
                                 </path>
                             </svg>
-                            <p class="text-sm capitalize">About Us</p>
+                          <Link to='/About'>  <p class="text-sm capitalize">About Us</p></Link>
                         </div>
                         <div class="flex hover:text-white items-center my-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-white default_pointer_cs default_pointer_land">
@@ -61,7 +62,7 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd">
                                 </path>
                             </svg>
-                            <p class="text-sm capitalize default_pointer_cs default_pointer_land">features &amp; benefits</p>
+                           <Link to='/Benefits'> <p class="text-sm capitalize default_pointer_cs default_pointer_land">features &amp; benefits</p></Link>
                         </div>
                         <div class="flex hover:text-white items-center my-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-white">
@@ -69,7 +70,7 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd">
                                 </path>
                             </svg>
-                            <p class="text-sm capitalize">testimonials</p>
+                           <Link to='/Advantages'><p class="text-sm capitalize">testimonials</p></Link> 
                         </div>
                         <div class="flex hover:text-white items-center my-2 default_pointer_cs default_pointer_land">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-white">
@@ -77,13 +78,13 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd">
                                 </path>
                             </svg>
-                            <p class="text-sm capitalize">FAQ</p>
+                            <Link to='/faq'><p class="text-sm capitalize">FAQ</p></Link>
                         </div>
                     </div>
                     <a href="/auth">
                         <div class="flex items-center justify-center default_pointer_cs default_pointer_land">
                             <div class="flex w-2/3 items-center justify-center md:w-full my-5 px-6 py-4 bg-[#0052FF] rounded-lg default_pointer_cs default_pointer_land">
-                               <a href='/auth'> <p class="text-sm text-white">Create account</p></a>
+                               <Link to='/auth'> <p class="text-sm text-white">Create account</p></Link>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 ml-2 text-white">
                                     <path fill-rule="evenodd" d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 
                                     0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z" clip-rule="evenodd">
@@ -139,7 +140,7 @@ const Footer = () => {
                             </div>
                             <div class="emailadd text-sm">
                                 <div class="email  text-gray-200 font-bold">E-mail Contact</div>
-                                <div class="phone text-gray-400 my-1 text-sm">team@firstradeaucity.online/</div>
+                                <div class="phone text-gray-400 my-1 text-sm">support@firstradeaucity.online</div>
                             </div>
                         </section>
                         <section class="icon-section"></section>
@@ -156,14 +157,14 @@ const Footer = () => {
                             </div>
                             <div class="text-sm">
                                 <div class="email  text-gray-200 font-bold">Location</div>
-                                <div class="phone text-gray-400 my-1 text-sm">firtradeaucity.online/</div>
+                                <div class="phone text-gray-400 my-1 text-sm">firtradeaucity.online</div>
                             </div>
                         </section>
                         <section class="icon-section"></section>
                     </div>
                 </div>
             </div>
-            <div class="footer-message py-4 flex justify-center text-white/60 bg-black text-xs md:text-base default_cursor_cs default_cursor_land">© 2024 first All Rights Reserved.</div>
+            <div class="footer-message py-4 flex justify-center text-white/60 bg-black text-xs md:text-base default_cursor_cs default_cursor_land">© 2024 Firstradeaucity.online All Rights Reserved.</div>
         </div>
     </div>
   )

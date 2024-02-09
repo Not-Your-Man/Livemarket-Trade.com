@@ -10,6 +10,7 @@ import Withdraw from "./pages/Landing/Dashboard/Withdraw";
 import Benefits from "./pages/Landing/Benefits";
 import Advantages from "./pages/Landing/Advantages";
 import Faq from "./pages/Landing/Faq";
+import Profilex from "./pages/Landing/Dashboard/Profilex";
 
 const App = () => {
   const { email } = useSelector((state) => state.auth.user_details);
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/Benefits" element={<Benefits />} />
         <Route path="/Advantages" element={<Advantages />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/Profile" element={<Profilex />} />
         {/* <Route path="/admin/withdrawals" element={<Withdrawal />} /> */}
         {/* <Route path="/admin/deposits" element={<UserDep />} /> */}
       </Routes>

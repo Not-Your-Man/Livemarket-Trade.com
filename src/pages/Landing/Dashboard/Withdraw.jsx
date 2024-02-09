@@ -4,11 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../../components/assets/common/Logo";
+import ReactModal from 'react-modal';
+
 
 const Withdraw = () => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
   const [method, setMethod] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+    const [withdrawalMethod, setWithdrawalMethod] = useState('');
+    const [description, setDescription] = useState('');
+    const [withdrawalAmount, setWithdrawalAmount] = useState(0);
+  const [walletAddress, setWalletAdress] = useState('');
   const showDrawer = () => {
     setOpen(true);
   };
@@ -29,7 +36,25 @@ const Withdraw = () => {
         progress: undefined,
       });
     };
-
+    
+  
+    const handleWithdraw = () => {
+      // Logic to perform the withdrawal action
+      // You can implement API calls or any other logic here
+      console.log('Withdrawal action performed');
+      
+      // Open the withdrawal receipt modal after successful withdrawal
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
+  
+    const downloadReceipt = () => {
+      // Logic to download the withdrawal receipt
+      console.log('Downloading receipt');
+    }
 
   return (
     <div>
@@ -61,6 +86,7 @@ const Withdraw = () => {
           </p>
         </div>
         <div class="flex items-center justify-between border-y-2 my-2 py-6 px-4">
+        <Link to="/Profile">
           <p class="rounded-full w-8 h-8 flex justify-center items-center bg-sky-600 mr-6">
             <svg
               stroke="currentColor"
@@ -77,7 +103,7 @@ const Withdraw = () => {
                 <path d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
               </g>
             </svg>
-          </p>
+          </p></Link>
           <p class="flex flex-col flex-1 text-sm">
             <span class="font-semibold"></span>
             <span class="text-slate-600 text-xs"></span>
@@ -173,7 +199,7 @@ const Withdraw = () => {
         <div className="md:flex relative">
           {/* left section */}
           <section
-            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-white md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
+            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-black md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
             style={{
               animation: "0.4 ease 0s 1 normal none running overlay-fade-in",
             }}
@@ -218,17 +244,17 @@ const Withdraw = () => {
                 </svg>
               </div>
               <div className="py-6 px-1 mb-5 w-11/12 hidden md:block">
-                <div class="uppercase mt-3  text-xs tracking-wide text-gray-700 font-semibold tra">
+                <div class="uppercase mt-3  text-xs tracking-wide text-white font-semibold tra">
                   Main account Balance
                 </div>
                 <p class="text-2xl font-semibold text-red-600">
                   $0 <span class="text-lg">USD</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Deposit</span>
                   <span>$0.00 usd</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Withdraw</span>
                   <span>$0.00 usd</span>
                 </p>
@@ -248,7 +274,7 @@ const Withdraw = () => {
                 </p>
               </div>
               <div className="w-11/12 font-medium text-slate-700 text-sm">
-                <div class="tracking mt-10 uppercase text-xs font-bold pl-3 tracking-wider">
+                <div class="tracking mt-10 uppercase text-xs font-bold pl-3 tracking-wider text-white">
                   Menu
                 </div>
                 <ul>
@@ -269,7 +295,7 @@ const Withdraw = () => {
                     >
                       <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h2A1.5 1.5 0 0 1 5 1.5v2A1.5 1.5 0 0 1 3.5 5h-2A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"></path>
                     </svg>
-                    <span>Dashboard</span>
+                    <span className="text-white">Dashboard</span>
                   </Link>
                   <Link
                     class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
@@ -291,7 +317,7 @@ const Withdraw = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Deposit</span>
+                    <span className="text-white">Deposit</span>
                   </Link>
                   <Link
                     class="flex text-red-500 focus:text-red-500 hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
@@ -312,7 +338,7 @@ const Withdraw = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Withdraw</span>
+                    <span className="text-white">Withdraw</span>
                   </Link>
                   
                 </ul>
@@ -320,9 +346,9 @@ const Withdraw = () => {
             </div>
           </section>
           {/* withdraw content */}
-          <div className="flex-1 h-screen bg-[#f5f6fa]">
-            <div className="pt-2 px-3 flex items-center justify-between border-b border-gray-200 bg-white">
-              <div class="bg-green200 p-0 relative -top-1" onClick={showDrawer}>
+          <div className="flex-1 h-screen bg-[#000000]">
+            <div className="pt-2 px-3 flex items-center justify-between border-b border-gray-200 bg-black">
+            <div class="bg-blue-500 p-0 relative -top-1" onClick={showDrawer}>
                 <span tabindex="0" class="btn btn-ghost btn-circle  md:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -347,6 +373,7 @@ const Withdraw = () => {
               </div>
               <div class="py-1">
                 <ToastContainer />
+                <Link to='/Profile'>
                 <p class="rounded-full w-8 h-8 flex justify-center items-center bg-rose-600">
                   <svg
                     stroke="currentColor"
@@ -364,51 +391,94 @@ const Withdraw = () => {
                     </g>
                   </svg>
                 </p>
+                </Link>
               </div>
             </div>
 
-            <section class="bg-[#f5f6fa] md:flex md:mt-20 flex-col justify-center font-normal">
-              <div class="flex flex-col items-center font-semibold text-2xl px-0 md:px-6 pt-8 h-full">
-                <p class="text-lg md:text-3xl text-slate-600 text-center mt-6">
-                  Withdraw Funds
-                </p>
-                <p class="text-center font-normal text-sm px-2 md:w-1/3 text-slate-600">
-                  Secure and safely deposit money into your account
-                </p>
-                <section class=" w-full md:w-auto">
-                  <div class="h-full w-full flex font-normal flex-col items-center">
-                    <div class=" flex flex-col justify-center w-11/12 md:w-full mt-10">
-                      <div class="mb-6 flex flex-col justify-center">
-                        <label class="text-sm pb-2 font-semibold">
-                          Select withdrawal method:
-                        </label>
-                        <select class="py-1.5 rounded border mt-1 border-gray-200 w-full  text-base">
-                          <option value="">Select method</option>
-                          <option value="btc">Bitcoin</option>
-                        </select>
-                      </div>
-                      <p class="flex flex-col w-72 md:w-80 lg:w-96 text-base">
-                        <span class="text-sm pb-2 font-semibold">
-                          Description (Optional):
-                        </span>
-                        <input
-                          type="text"
-                          class="py-1 px-2 text-base rounded border mt-1 mb-4 border-gray-200 md:w-96"
-                        />
-                      </p>
-                      <button class="px-3 py-1.5 md:w-72_ md:w-80 lg:w-full md:py-2.5 text-sm bg-red-500 text-white font-medium rounded uppercase mt-3 md:mt-0">
-                        Continue to withdraw
-                      </button>
-                    </div>
-                  </div>
-                </section>
+            <div className="bg-[#000000] md:flex flex-col justify-center font-normal">
+      <div className="flex flex-col items-center font-semibold text-2xl px-0 md:px-6 pt-8 h-full">
+        <p className="text-lg md:text-3xl text-white text-center mt-6">
+          Withdraw Funds
+        </p>
+        <p className="text-center font-normal text-sm px-2 md:w-1/3 text-white">
+          Secure and safely deposit money into your account
+        </p>
+        <section className=" w-full md:w-auto">
+          <div className="h-full w-full flex font-normal flex-col items-center">
+            <div className=" flex flex-col justify-center w-11/12 md:w-full mt-10">
+              {/* Withdrawal form */}
+              <div className="mb-6 flex flex-col justify-center">
+                <label className="text-sm pb-2 font-semibold text-white">
+                  Select withdrawal method:
+                </label>
+                <select
+                  className="py-1.5 rounded border mt-1 border-gray-200 w-full  text-base"
+                  value={withdrawalMethod}
+                  onChange={(e) => setWithdrawalMethod(e.target.value)}
+                >
+                  <option value="">Select method</option>
+                  <option value="btc">Bitcoin</option>
+                  <option value="eth">Ethereum (ERC20)</option>
+                  <option value='usdt'>USDT (ERC20)</option>
+                  <option value='usdt'>Bank </option>
+                </select>
               </div>
-            </section>
+              <div className="flex flex-col w-72 md:w-80 lg:w-96 text-base">
+                <span className="text-sm pb-2 font-semibold text-white">
+                  Description (Optional):
+                </span>
+                <input
+                  type="text"
+                  className="py-1 px-2 text-base rounded border mt-1 mb-4 border-gray-200 md:w-96"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <p className="flex flex-col w-72 md:w-80 lg:w-96 text-base">
+          <span className="text-sm pb-2 font-semibold text-white">Amount to withdraw:</span>
+          <input
+            type="number"
+            className="py-1 px-2 text-base rounded border mt-1 mb-4 border-gray-200 md:w-96"
+            value={withdrawalAmount}
+            onChange={(e) => setWithdrawalAmount(parseFloat(e.target.value))}
+          />
+        </p>
+              <button onClick={handleWithdraw} className="px-3 py-1.5 md:w-72_ md:w-80 lg:w-full md:py-2.5 text-sm bg-red-500 text-white font-medium rounded uppercase mt-3 md:mt-0">
+                Continue to withdraw
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div>
+ {/* Withdrawal receipt modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white rounded-md p-4">
+            <div className="flex justify-between">
+              {/* Close button */}
+              <button onClick={closeModal} className="text-red-500">
+                Close
+              </button>
+              {/* Download button */}
+              <button onClick={downloadReceipt} className="text-green-500">
+                Download
+              </button>
+            </div>
+            {/* Receipt content */}
+            <h2 className="text-lg font-semibold">Withdrawal Receipt</h2>
+            <p>Description: {description}</p>
+            <p>Amount: ${withdrawalAmount.toFixed(2)}</p>
+            <p>Wallet Address: {walletAddress}</p>
+          </div>
+        </div>
+      )}
+ </div>
           </div>
         </div>
       </div>
-    </div>
+ </div>
+ </div>
   );
 };
-
 export default Withdraw;

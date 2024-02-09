@@ -79,6 +79,7 @@ const Deposit = () => {
           </p>
         </div>
         <div class="flex items-center justify-between border-y-2 my-2 py-6 px-4">
+        <Link to="/Profile">
           <p class="rounded-full w-8 h-8 flex justify-center items-center bg-sky-600 mr-6">
             <svg
               stroke="currentColor"
@@ -95,7 +96,7 @@ const Deposit = () => {
                 <path d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
               </g>
             </svg>
-          </p>
+          </p></Link>
           <p class="flex flex-col flex-1 text-sm">
             <span class="font-semibold"></span>
             <span class="text-slate-600 text-xs"></span>
@@ -113,7 +114,7 @@ const Deposit = () => {
             <path d="M7 10l5 5 5-5H7z"></path>
           </svg>
         </div>
-        <div className="w-11/12 font-medium text-slate-700 text-sm">
+        <div className="w-11/12 font-medium  text-slate-700 text-sm">
           <div class="tracking mt-10 uppercase text-xs font-bold pl-3 tracking-wider">
             Menu
           </div>
@@ -183,7 +184,7 @@ const Deposit = () => {
             </Link>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
-              to="/user/profile"
+              to="/Profile"
               style={{ color: "rgb(82, 100, 132)" }}
             >
               <svg
@@ -204,6 +205,7 @@ const Deposit = () => {
               </svg>
               <span>Account Setting</span>
             </Link>
+            <Link to='/auth'>
             <p
               class="flex text-[#526484] hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
             >
@@ -219,8 +221,9 @@ const Deposit = () => {
               >
                 <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
               </svg>
-              <span>Sign Out</span>
+              <span className="text-[#526484]">Sign Out</span>
             </p>
+            </Link>
           </ul>
         </div>
       </Drawer>
@@ -230,7 +233,7 @@ const Deposit = () => {
         <div className="md:flex relative">
           {/* left section */}
           <section
-            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-white md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
+            className="hidden md:relative z-10 top-0 left-0 bottom-0 w-full bg-black md:flex md:flex-col md:items-center md:w-4/12 lg:w-1/5 bg-red-5 shadow-lg"
             style={{
               animation: "0.4 ease 0s 1 normal none running overlay-fade-in",
             }}
@@ -275,17 +278,17 @@ const Deposit = () => {
                 </svg>
               </div>
               <div className="py-6 px-1 mb-5 w-11/12 hidden md:block">
-                <div class="uppercase mt-3  text-xs tracking-wide text-gray-700 font-semibold tra">
+                <div class="uppercase mt-3  text-xs tracking-wide text-white font-semibold tra">
                   Main account Balance
                 </div>
                 <p class="text-2xl font-semibold text-red-600">
                   $0 <span class="text-lg">USD</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Deposit</span>
                   <span>$0.00 usd</span>
                 </p>
-                <p class="flex justify-between text-gray-800 mt-3 font-medium text-sm">
+                <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Withdraw</span>
                   <span>$0.00 usd</span>
                 </p>
@@ -297,14 +300,14 @@ const Deposit = () => {
                     <span>Deposit</span>
                   </Link>
                   <Link
-                    class="px-4 py-1.5 text-sm bg-yellow-500 hover:text-white text-white rounded"
+                    class="px-4 py-1.5 text-sm bg-yellow-500 hover:text- text-white rounded"
                     to="/withdraw"
                   >
                     Withdraw
                   </Link>
                 </p>
               </div>
-              <div className="w-11/12 font-medium text-slate-700 text-sm">
+              <div className="w-11/12 font-medium text-white text-sm">
                 <div class="tracking mt-10 uppercase text-xs font-bold pl-3 tracking-wider">
                   Menu
                 </div>
@@ -325,7 +328,7 @@ const Deposit = () => {
                     >
                       <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h2A1.5 1.5 0 0 1 5 1.5v2A1.5 1.5 0 0 1 3.5 5h-2A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"></path>
                     </svg>
-                    <span>Dashboard</span>
+                    <span className="text-white">Dashboard</span>
                   </Link>
                   <Link
                     class="flex text-red-500 focus:text-red-500 hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
@@ -346,7 +349,7 @@ const Deposit = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Deposit</span>
+                    <span className="text-white">Deposit</span>
                   </Link>
                   <Link
                     class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
@@ -368,8 +371,9 @@ const Deposit = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span>Withdraw</span>
+                    <span className="text-white">Withdraw</span>
                   </Link>
+                  <Link to='/auth'>
                   <p
                     class="flex text-[#526484] hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
                   >
@@ -385,8 +389,9 @@ const Deposit = () => {
                     >
                       <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z"></path>
                     </svg>
-                    <span>Sign Out</span>
+                    <span className="text-[#526484]">Sign Out</span>
                   </p>
+                  </Link>
                 </ul>
               </div>
             </div>
@@ -395,8 +400,8 @@ const Deposit = () => {
           {/* Deposit Content */}
           <div className="flex-1 bg-[#f5f6fa]">
             <ToastContainer />
-            <div className="pt-2 px-3 flex items-center justify-between border-b border-gray-200 bg-white">
-              <div class="bg-green200 p-0 relative -top-1" onClick={showDrawer}>
+            <div className="pt-2 px-3 flex items-center justify-between border-b border-gray bg-black">
+            <div class="bg-blue-500 p-0 relative -top-1" onClick={showDrawer}>
                 <span tabindex="0" class="btn btn-ghost btn-circle  md:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -414,12 +419,13 @@ const Deposit = () => {
                   </svg>
                 </span>
               </div>
-              <div class="justify-self-center pb-2">
+              <div class="justify-self-center pb-2 ">
               <Link to="/" className="flex items-center">
             <Logo/>
           </Link>
               </div>
               <div class="py-1">
+              <Link to='/Profile'>
                 <p class="rounded-full w-8 h-8 flex justify-center items-center bg-rose-600">
                   <svg
                     stroke="currentColor"
@@ -437,10 +443,11 @@ const Deposit = () => {
                     </g>
                   </svg>
                 </p>
+                </Link>
               </div>
             </div>
 
-            <section class="bg-[#f5f6fa] md:flex md:mt-10 flex-col justify-center h-screen">
+            <section class="bg-[#000000] md:flex flex-col justify-center h-screen">
               <div class="flex flex-col items-center font-semibold text-2xl px-6 pt-8 h-full">
                 <p class="rounded-full mt-4 pb-0 mb-0 w-16 h-16 flex justify-center items-center bg-[#33b5e5]">
                   <svg
@@ -457,12 +464,12 @@ const Deposit = () => {
                     <path d="M31.33 259.5V116c0-12.33 5.72-18.48 15.42-20 35.2-5.53 108.58-8.5 108.58-8.5s-8.33 16-27.33 16V128c18.5 0 31.33 23.5 31.33 23.5L84.83 236z"></path>
                   </svg>
                 </p>
-                <p class="text-lg md:text-xl text-center mt-6">Deposit Funds</p>
-                <p class="text-center font-normal md:font-medium text-sm px-2 md:w-1/3 text-slate-600">
+                <p class="text-lg md:text-xl text-center mt-6 text-white">Deposit Funds</p>
+                <p class="text-center font-normal md:font-medium text-sm px-2 md:w-1/3 text-slate-20">
                   Secure and safely deposit money into your account
                 </p>
                 <p class="flex flex-col w-72 mb-2 md:w-80 lg:w-96 font-normal">
-                  <span class="text-sm pb-2">
+                  <span class="text-sm pb-2 text-white">
                     Amount to Deposit
                     <span class="text-red-500">*</span>
                   </span>
@@ -480,12 +487,12 @@ const Deposit = () => {
                   class="py-1.5 rounded w-72 md:w-80 font-normal mb-4 border mt-1 border-gray-200  text-base"
                 >
                   <option value="btc">Bitcoin</option>
-                  {/* <option value="eth">Ethereum</option>
-                  <option value="bank">Bank</option>
-                  <option value="usdc">USDT</option> */}
+                  <option value="eth">Ethereum</option>
+                  <option value="bank" onSelect={showBank}>Bank</option>
+                  <option value="usdc">USDT</option>
                 </select>
                 <p class="flex flex-col w-72 md:w-80 lg:w-96 text-base mb-3">
-                  <span class="text-sm pb-2 font-normal">Description</span>
+                  <span class="text-sm pb-2 font-normal text-white">Description</span>
                   <textarea
                     placeholder="Optional"
                     class="border pt-2 text-gray-900 text-base border-gray-300 py- px-2 md:p-2 rounded shadow-sm font-normal placeholder:text-sm md:placeholder:text-base"
@@ -509,6 +516,14 @@ const Deposit = () => {
                     <section className="border mt-5 border-slate-300 px-1 md:px-4 mb-6 font-normal default_cursor_cs">
                       <div class="flex justify-between items-center border-b py-2 border-slate-300 text-sm font-normal default_cursor_cs">
                         <span>Payment method</span>
+                        <select
+                  class="py-1.5 rounded w-72 md:w-80 font-normal mb-4 border mt-1 border-gray-200  text-base"
+                >
+                  <option value="btc">Bitcoin</option>
+                  <option value="eth">Ethereum</option>
+                  <option value="bank">Bank</option>
+                  <option value="usdc">USDT</option>
+                </select>
                         <span class="flex uppercase text-sm font-normal default_cursor_cs">
                           {" "}
                           <svg

@@ -204,6 +204,7 @@ const Auth = () => {
 //     });
 // };
 const handleLogin = () => {
+  setLoading(true); // Set loading to true when starting the login process
   fetch('https://aucitydbserver.onrender.com/api/login', {
     method: 'POST',
     headers: {
@@ -227,6 +228,9 @@ const handleLogin = () => {
     .catch(error => {
       console.error(error);
       setError(error.message || 'An error occurred during login');
+    })
+    .finally(() => {
+      setLoading(false); // Set loading to false after login attempt, regardless of success or failure
     });
 };
 
