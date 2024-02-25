@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Drawer, Modal } from "antd";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import { Drawer, Modal, message } from "antd";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -10,6 +11,98 @@ const Deposit = () => {
   const [amt, setAmt] = useState("");
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State variable for success message
+ const [depositHistory, setDepositHistory] = useState([]);
+ const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("btc");
+ // State to manage transaction history
+ const [transactions, setTransactions] = useState(() => {
+  const storedTransactions = localStorage.getItem("transactions");
+  return storedTransactions ? JSON.parse(storedTransactions) : [];
+});
+
+ const handleDeposit = () => {
+  setIsModalOpen(false);
+  setShowSuccessMessage(true);
+  message.success("Payment Successful");
+  const amount = parseFloat(amt);
+  setMainAccountBalance(prevBalance => prevBalance + amount);
+  setDepositBalance(prevBalance => prevBalance + amount);
+
+  const transactionDetails = depositAction(amount); // Pass the deposited amount
+  setTransactions([...transactions, transactionDetails]);
+};
+
+const depositAction = (amount) => { // Receive the deposited amount as a parameter
+  const transactionDetails = {
+    id: Math.random().toString(36).substr(2, 9),
+    amount: amount, // Use the deposited amount
+    time: new Date().toLocaleString()
+  };
+  return transactionDetails;
+};
+
+const handleClearHistory = () => {
+  localStorage.removeItem("transactions"); // Remove transaction history from local storage
+  setTransactions([]); // Clear transaction history in state
+};
+  
+const [address, setAddress] = useState({
+  btc: 'Bitcoin Address...',
+  eth: 'Ethereum Address...',
+  bank: 'Bank Account...',
+  USDT: 'USDT Address...',
+});
+
+useEffect(() => {
+  // Fetch initial deposit details from the server
+  const fetchDepositDetails = async () => {
+    try {
+      const response = await axios.get('https://aucitydbserver.onrender.com/api/deposit-details');
+      const depositDetails = response.data;
+      // Update the address state with the fetched deposit details
+      setAddress({
+        btc: depositDetails.btcWallet || 'Bitcoin Address...',
+        eth: depositDetails.ethWallet || 'Ethereum Address...',
+        bank: depositDetails.bankAccount || 'Bank Account...',
+        USDT: depositDetails.USDT || 'USDT Address...',
+      });
+    } catch (error) {
+      console.error('Error fetching deposit details:', error);
+    }
+  };
+
+  fetchDepositDetails();
+}, []);
+
+ const [mainAccountBalance, setMainAccountBalance] = useState(() => {
+  const storedBalance = localStorage.getItem("mainAccountBalance");
+  return storedBalance ? parseFloat(storedBalance) : 0;
+});
+
+const [depositBalance, setDepositBalance] = useState(() => {
+  const storedBalance = localStorage.getItem("depositBalance");
+  return storedBalance ? parseFloat(storedBalance) : 0;
+});
+
+    const [storedBalance, setStoredBalance] = useState(() => {
+  const storedBalance = localStorage.getItem("mainAccountBalance");
+  return storedBalance ? parseFloat(storedBalance) : 0;
+});
+
+    useEffect(() => {
+      // Save the main account balance to localStorage whenever it changes
+      localStorage.setItem("mainAccountBalance", mainAccountBalance.toString());
+    }, [mainAccountBalance]);
+  
+    useEffect(() => {
+      // Save the deposit balance to localStorage whenever it changes
+      localStorage.setItem("depositBalance", depositBalance.toString());
+      localStorage.setItem("transactions", JSON.stringify(transactions)); // Save transaction history to local storage
+    }, [depositBalance, transactions]);
+
+   // Get the main account balance from localStorage or set it to 0 if it doesn't exist
+
+   
   const showDrawer = () => {
     setOpen(true);
   };
@@ -23,6 +116,10 @@ const Deposit = () => {
   const onAmtChange = (e) => {
     setAmt(e.target.value);
   };
+  
+  const handlePaymentMethodChange = (e) => {
+    setSelectedPaymentMethod(e.target.value);
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -32,9 +129,18 @@ const Deposit = () => {
       setIsModalOpen(true);
     }
   };
-  const handleOk = () => {
+   const handleOk = () => {
+  
     setIsModalOpen(false);
+    setShowSuccessMessage(true); // Show success message when payment is successful
+    message.success("Payment Successful"); // Display success message using antd message component
+    const amount = parseFloat(amt);
+    setMainAccountBalance(prevBalance => prevBalance + amount); // Update main account balance
+    setDepositBalance(prevBalance => prevBalance + amount); // Update deposit balance
+    const transactionDetails = depositAction(amount); // Pass the deposited amount
+  setTransactions([...transactions, transactionDetails]); 
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -48,6 +154,7 @@ const Deposit = () => {
   const handleClose = () => {
     setOpenBank(false);
   };
+  
 
   return (
     <div>
@@ -282,11 +389,11 @@ const Deposit = () => {
                   Main account Balance
                 </div>
                 <p class="text-2xl font-semibold text-red-600">
-                  $0 <span class="text-lg">USD</span>
+                ${mainAccountBalance} <span class="text-lg">USD</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Deposit</span>
-                  <span>$0.00 usd</span>
+                  <span>${depositBalance} usd</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Withdraw</span>
@@ -485,11 +592,13 @@ const Deposit = () => {
                 </p>
                 <select
                   class="py-1.5 rounded w-72 md:w-80 font-normal mb-4 border mt-1 border-gray-200  text-base"
+                  onChange={handlePaymentMethodChange}
+                  value={selectedPaymentMethod}
                 >
                   <option value="btc">Bitcoin</option>
                   <option value="eth">Ethereum</option>
                   <option value="bank" onSelect={showBank}>Bank</option>
-                  <option value="usdc">USDT</option>
+                  <option value="USDT">USDT</option>
                 </select>
                 <p class="flex flex-col w-72 md:w-80 lg:w-96 text-base mb-3">
                   <span class="text-sm pb-2 font-normal text-white">Description</span>
@@ -504,26 +613,57 @@ const Deposit = () => {
                 >
                   Continue to Deposit
                 </button>
+              {/* Transaction history */}
+              <div className="p-2">
+  <h2 className="text-sm font-semibold mb-2">Transaction History</h2>
+  {/* Transaction history table */}
+  <div className="overflow-auto max-h-48">
+    <table className="border-collapse w-full text-xs">
+      <thead>
+        <tr>
+          <th className="border border-gray-300 bg-gray-200 px-2 py-1 rounded-tl-md">Transaction ID</th>
+          <th className="border border-gray-300 bg-gray-200 px-2 py-1">Amount</th>
+          <th className="border border-gray-300 bg-gray-200 px-2 py-1 rounded-tr-md">Time Deposited</th>
+        </tr>
+      </thead>
+      <tbody>
+        {/* Transaction history items */}
+        {transactions.map((transaction) => (
+          <tr key={transaction.id}>
+            <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.id}</td>
+            <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.amount}</td>
+            <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.time}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {/* Clear history button */}
+  <button onClick={handleClearHistory} className="mt-2 bg-red-500 text-white px-1 py-0.5 rounded-md text-xs">Clear</button>
+</div>
+
+
                 <p class="font-medium text-red-600 text-xs md:text-base"></p>
                 <Modal
                   title="Complete Deposit"
                   open={isModalOpen}
                   onOk={handleOk}
                   onCancel={handleCancel}
+                  okButtonProps={{ className: 'bg-red-500' }} // Add this line
                 >
                   <div className="border border-gray-100 w-full"></div>
                   <div className="text-black">
                     <section className="border mt-5 border-slate-300 px-1 md:px-4 mb-6 font-normal default_cursor_cs">
                       <div class="flex justify-between items-center border-b py-2 border-slate-300 text-sm font-normal default_cursor_cs">
-                        <span>Payment method</span>
+                     { /**<span>Payment method</span>
                         <select
                   class="py-1.5 rounded w-72 md:w-80 font-normal mb-4 border mt-1 border-gray-200  text-base"
                 >
-                  <option value="btc">Bitcoin</option>
-                  <option value="eth">Ethereum</option>
-                  <option value="bank">Bank</option>
-                  <option value="usdc">USDT</option>
-                </select>
+                  <span>{selectedPaymentMethod === 'btc' ? 'Bitcoin Address...' : selectedPaymentMethod}</span>
+                  <span>{selectedPaymentMethod === 'eth' ? 'Eth Address...' : selectedPaymentMethod}</span>
+                  <span>{selectedPaymentMethod === 'bank' ? 'Bank Account...' : selectedPaymentMethod}</span>
+                  <span>{selectedPaymentMethod === 'usdc' ? 'USDT Address...' : selectedPaymentMethod}</span>
+                </select>**/}
                         <span class="flex uppercase text-sm font-normal default_cursor_cs">
                           {" "}
                           <svg
@@ -543,7 +683,7 @@ const Deposit = () => {
                         </span>
                       </div>
                       <div class="flex justify-between items-center border-b py-2 border-slate-300 text-sm default_cursor_cs">
-                        <span class="flex text-sm">Address...</span>
+                        <span class="flex text-sm">{address[selectedPaymentMethod]}</span>
                         <CopyToClipboard
                         >
                           <svg
@@ -568,11 +708,14 @@ const Deposit = () => {
                         </span>
                       </div>
                       <div class="mb-3 pt-3 text-sm default_cursor_cs">
-                        *Click the copy icon and proceed to make deposit.
-                      </div>
+  *Click the copy icon and proceed to make deposit.
+  before clicking <span class="text-red-500">Confirm Pay</span>
+</div>
+
                     </section>
                     <button
                       class="px-3 mt-8 pt-1.5 pb-1.5 w-full md:py-2.5 text-xs bg-yellow-500 text-white font-medium rounded uppercase md:mt-0 default_pointer_cs"
+                      onClick={handleDeposit}
                     >
                       Confirm Pay
                     </button>

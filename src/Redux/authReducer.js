@@ -49,7 +49,7 @@
 
 
 // reducers.js
-const initialState = {
+{/* const initialState = {
   user: {},
 };
 
@@ -59,6 +59,30 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export default authReducer; */}
+
+const initialState = {
+  user: {},
+  admin: {}, // Initialize admin details
+};
+
+const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'SET_USER_DETAILS':
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case 'SET_ADMIN_DETAILS':
+      return {
+        ...state,
+        admin: action.payload,
       };
     default:
       return state;

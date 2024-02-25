@@ -16,6 +16,17 @@ const Withdraw = () => {
     const [description, setDescription] = useState('');
     const [withdrawalAmount, setWithdrawalAmount] = useState(0);
   const [walletAddress, setWalletAdress] = useState('');
+  const storedBalance = localStorage.getItem("mainAccountBalance");
+  
+  const [mainAccountBalance, setMainAccountBalance] = useState(() => {
+    const storedBalance = localStorage.getItem("mainAccountBalance");
+    return storedBalance ? parseFloat(storedBalance) : 0;
+  });
+  
+  const [depositBalance, setDepositBalance] = useState(() => {
+    const storedBalance = localStorage.getItem("depositBalance");
+    return storedBalance ? parseFloat(storedBalance) : 0;
+  });
   const showDrawer = () => {
     setOpen(true);
   };
@@ -248,11 +259,11 @@ const Withdraw = () => {
                   Main account Balance
                 </div>
                 <p class="text-2xl font-semibold text-red-600">
-                  $0 <span class="text-lg">USD</span>
+                ${mainAccountBalance} <span class="text-lg">USD</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Deposit</span>
-                  <span>$0.00 usd</span>
+                  <span>${depositBalance} usd</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
                   <span>Withdraw</span>
@@ -443,9 +454,10 @@ const Withdraw = () => {
             onChange={(e) => setWithdrawalAmount(parseFloat(e.target.value))}
           />
         </p>
-              <button onClick={handleWithdraw} className="px-3 py-1.5 md:w-72_ md:w-80 lg:w-full md:py-2.5 text-sm bg-red-500 text-white font-medium rounded uppercase mt-3 md:mt-0">
+        <a href="mailto:invest@firstradeaucity.com?subject=Wiithdrwal Process">
+<button /*onClick={handleWithdraw}*/ className="px-3 py-1.5 md:w-72_ md:w-80 lg:w-full md:py-2.5 text-sm bg-red-500 text-white font-medium rounded uppercase mt-3 md:mt-0">
                 Continue to withdraw
-              </button>
+              </button></a>
             </div>
           </div>
         </section>

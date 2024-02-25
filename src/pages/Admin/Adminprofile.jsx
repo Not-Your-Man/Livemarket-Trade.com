@@ -1,32 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { FaCoins } from "react-icons/fa";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { FaChartPie } from "react-icons/fa";
-
-import { Button, Drawer, Radio, Space } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import Widget2 from "./Widget2";
-import Logo from "../../../components/assets/common/Logo";
-import gif from "../../../components/assets/images/gif1.gif"
-import { MdInfo } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { Drawer, message } from 'antd';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserOutlined, LeftOutlined } from '@ant-design/icons';
+import Logo from "../../components/assets/common/Logo";
 import { useDispatch, useSelector } from "react-redux";
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import "../CSS/Rotate.css";
 
-const Dashboardx = () => {
+const Adminprofile = () => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
-  const storedBalance = localStorage.getItem("mainAccountBalance");
-  
-  const [mainAccountBalance, setMainAccountBalance] = useState(() => {
-    const storedBalance = localStorage.getItem("mainAccountBalance");
-    return storedBalance ? parseFloat(storedBalance) : 0;
-  });
-  
-  const [depositBalance, setDepositBalance] = useState(() => {
-    const storedBalance = localStorage.getItem("depositBalance");
-    return storedBalance ? parseFloat(storedBalance) : 0;
-  });
+   const navigate = useNavigate();
+   const [userEmail, setUserEmail] = useState('');
+ //  const [authenticatedUserEmail, setAuthenticatedUserEmail] = useState('');
+   const [oldPassword, setOldPassword] = useState('');
+   const [newPassword, setNewPassword] = useState('');
+   const [showOldPassword, setShowOldPassword] = useState(false); // Define showOldPassword state
+   const [showNewPassword, setShowNewPassword] = useState(false); // Define showNewPassword state
+ 
   const showDrawer = () => {
     setOpen(true);
   };
@@ -36,19 +26,39 @@ const Dashboardx = () => {
   const onChange = (e) => {
     setPlacement(e.target.value);
   };
+  const goBack = () => {
+    navigate(-1);
+  };
   
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
-
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    try {
+      // Make a PATCH request to the backend API endpoint to change the password
+      const response = await axios.patch('https://aucitydbserver.onrender.com/api/change-password', {
+        email: userEmail,
+        oldPassword,
+        newPassword
+      });
+  
+      // Display success message
+      message.success(response.data.message);
+  
+      // Clear input fields
+      setOldPassword('');
+      setNewPassword('');
+    } catch (error) {
+      // Display error message
+      message.error(error.response?.data?.error || 'Failed to change password');
+    }
+  };
   const usery = useSelector((state) => state.auth.user);
   const [user, setUser] = useState({
     ...usery,
   });
-  console.log({ user });  
-
+  console.log({ user });    
+  
   return (
     <div>
-     
       {/* DRAWER */}
       <Drawer
       
@@ -59,7 +69,7 @@ const Dashboardx = () => {
       >
         <div className=" w-[93%] pt-6 pl-2.5 default_cursor_cs x">
           <p className="flex justify-between py-2">
-          <Link to="/" className="flex items-center">
+          <Link to="/admin" className="flex items-center">
             <Logo/>
           </Link>
             <svg
@@ -78,7 +88,7 @@ const Dashboardx = () => {
           </p>
         </div>
         <div className="flex items-center justify-between border-y-2 my-2 py-6 px-4">
-          <Link to="/Profile">
+          <Link to="/admin-Profile">
           <p class="rounded-full w-8 h-8 flex justify-center items-center bg-sky-600 mr-6">
             <svg
               stroke="currentColor"
@@ -120,7 +130,7 @@ const Dashboardx = () => {
           <ul>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12  active"
-              to="/dashboard"
+              to="/admin"
               style={{ color: "rgb(225, 29, 72)" }}
             >
               <svg
@@ -135,11 +145,11 @@ const Dashboardx = () => {
               >
                 <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h2A1.5 1.5 0 0 1 5 1.5v2A1.5 1.5 0 0 1 3.5 5h-2A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"></path>
               </svg>
-              <span>Dashboard</span>
+              <span>Admin</span>
             </Link>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
-              to="/deposit"
+              to="/clients"
               style={{ color: "rgb(82, 100, 132)" }}
             >
               <svg
@@ -157,11 +167,11 @@ const Dashboardx = () => {
                   <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                 </g>
               </svg>
-              <span>Deposit</span>
+              <span>Client</span>
             </Link>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
-              to="/withdraw"
+              to="/Acct"
               style={{ color: "rgb(82, 100, 132)" }}
             >
               <svg
@@ -179,11 +189,11 @@ const Dashboardx = () => {
                   <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                 </g>
               </svg>
-              <span>Withdraw</span>
+              <span>Action</span>
             </Link>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
-              to="/Profile"
+              to="/admin-profile"
               style={{ color: "rgb(82, 100, 132)" }}
             >
               <svg
@@ -204,7 +214,7 @@ const Dashboardx = () => {
               </svg>
               <span>Account Setting</span>
             </Link>
-            <Link to='/auth'>
+            <Link to='/admin-login'>
             <p
               class="flex text-[#526484] hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
             >
@@ -238,7 +248,7 @@ const Dashboardx = () => {
             }}
           >
             <div className="w-[93%]u pt-3 pl-2.5u">
-              <Link to="/" className="flex justify-center items-center">
+              <Link to="/admin" className="flex justify-center items-center">
                 <Logo/>
               </Link>
               <div className="font-medium text-white text-sm border-t border-gray-300 border-opacity-50">
@@ -248,7 +258,7 @@ const Dashboardx = () => {
                 <ul className="space-y-5">
                   <Link
                     class="flex text-red-500 hover:bg-slate-200 focus:text-red-500 items-center py-3 px-3 rounded w-10/12"
-                    to="/user/dashboard"
+                    to="/admin"
                   >
                     <svg
                       stroke="currentColor"
@@ -262,12 +272,12 @@ const Dashboardx = () => {
                     >
                       <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h2A1.5 1.5 0 0 1 5 1.5v2A1.5 1.5 0 0 1 3.5 5h-2A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-2zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"></path>
                     </svg>
-                    <span>Dashboard</span>
+                    <span>Admin</span>
                   </Link>
                  
                   <Link
                     class="flex text-white hover:bg-slate-700 items-center py-3 px-3 rounded w-10/12"
-                    to="/deposit"
+                    to="/clients "
                     style={{ color: "rgb(82, 100, 132)" }}
                   >
                     <svg
@@ -285,11 +295,11 @@ const Dashboardx = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span className="text-white">Deposit</span>
+                    <span className="text-white">Client</span>
                   </Link>
                   <Link
                     class="flex text-white hover:bg-slate-700 items-center py-3 px-3 rounded w-10/12"
-                    to="/withdraw"
+                    to="/Acct"
                     style={{ color: "rgb(82, 100, 132)" }}
                   >
                     <svg
@@ -307,10 +317,10 @@ const Dashboardx = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
-                    <span className="text-white">Withdraw</span>
+                    <span className="text-white">Action</span>
                   </Link>
 
-                  <Link to='/auth'>
+                  <Link to='/admin-login'>
                   <p
                     class="flex text-[#526484] hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12" 
                   >
@@ -333,145 +343,90 @@ const Dashboardx = () => {
               </div>
             </div>
           </section>
+   {/* PROFILE CONTENT */}
+<div className="flex-1 min-h-screen bg-[#000000]">
+  <div class="bg-blue-500 p-0 fixed top-0 left-0 z-50" onClick={showDrawer}>
+    <span tabindex="0" class="btn btn-ghost btn-circle md:hidden">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 e text-black"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h7"
+        ></path>
+      </svg>
+    </span>
+  </div>
+  <div className="pt-2 px-3 bg-black">
+   <button onClick={() => navigate(-1)} className=" px-10 py-30">
+            <LeftOutlined />
+            </button>
+    <div className="flex justify-center">
+     
+    <form onSubmit={handleChangePassword} className="mt-6 max-w-md w-full">
+  <div className="w-full max-w flex justify-center">
+    <span>
+      <UserOutlined style={{ fontSize: '64px' }} /> {/* Profile icon */}
+    </span>
+  </div>
+  <div className="mb-4">
+    <label className="block">Username:</label>
+    <input type="text" placeholder={user.name} disabled className="w-full px-3 py-2 border rounded-md" />
+  </div>
+  <div className="mb-4">
+    <label className="block">Email:</label>
+    <input type="email" placeholder="User@Email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className="w-full px-3 py-2 border rounded-md" />
+  </div>
+  <div className="mb-4 relative">
+    <label className="block">Old Password:</label>
+    <input 
+      type={showOldPassword ? "text" : "password"} 
+      placeholder="Old Password" 
+      value={oldPassword} 
+      onChange={(e) => setOldPassword(e.target.value)} 
+      className="w-full px-3 py-2 border rounded-md" 
+    />
+    <button 
+      type="button" 
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 focus:outline-none"
+      onClick={() => setShowOldPassword(!showOldPassword)}
+    >
+      {showOldPassword ? 'Hide' : 'Show'}
+    </button>
+  </div>
+  <div className="mb-4 relative">
+    <label className="block">New Password:</label>
+    <input 
+      type={showNewPassword ? "text" : "password"} 
+      placeholder="New Password" 
+      value={newPassword} 
+      onChange={(e) => setNewPassword(e.target.value)} 
+      className="w-full px-3 py-2 border rounded-md" 
+    />
+    <button 
+      type="button" 
+      className="absolute top-1/2 right-2 transform -translate-y-1/2 focus:outline-none"
+      onClick={() => setShowNewPassword(!showNewPassword)}
+    >
+      {showNewPassword ? 'Hide' : 'Show'}
+    </button>
+  </div>
+  <button type="submit" disabled={!userEmail || !oldPassword || !newPassword} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Change Password</button>
+</form>
 
-          {/* Dashboard content */}
-          <div className="flex-1 min-h-screen bg-[#000000]">
-  {/* dashnav */}
-  <div className="py-[13px] px-3 flex items-center justify-between border-b border-gray-200 bg-black">
-            <div class="bg-blue-500 p-0 fixed top-0 left-0 z-50" onClick={showDrawer}>
-                <span tabindex="0" class="btn btn-ghost btn-circle  md:hidden">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 e text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 6h16M4 12h16M4 18h7"
-                    ></path>
-                  </svg>
-                </span>
-              </div>
-              <div className="text-whitet flex gap-1">
-                <MdInfo className="text-[#222074]"/>
-                <p className="text-xs pt0">1BTC = $99.99sum</p>
-              </div>
-              {/* <div class="justify-self-center pb-2">
-              <Link to="/" className="flex items-center">
-                <Logo/>
-              </Link>
-              </div> */}
-              <div class="flex gap-10 py-1">
-                <div className="hidden md:flex">
-                  <button className="bg-[#222074] text-white text-xs font-Poppins py-3 px-7 rounded-lg">
-                    Refresh Page
-                  </button>
-                </div>
-                <Link to='/Profile'>
-                <p class="rounded-full w-8 h-8 flex justify-center items-center bg-rose-600">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    stroke-width="0"
-                    viewBox="0 0 24 24"
-                    class=" text-gray-300 bg-clip-text rounded-full"
-                    height="13"
-                    width="13"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g>
-                      <path fill="none" d="M0 0h24v24H0z"></path>
-                      <path d="M20 22h-2v-2a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v2H4v-2a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v2zm-8-9a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-                    </g>
-                  </svg>
-                </p>
-                </Link>
-              </div>
-            </div>
-            {/* dashnav */}
-
-             {/* Main-content */}
-             <div className="">
-             <section className="md:flex md:justify-between md:px-20 pb-3">
-      <div className="lg:w-[50%] lg:flex plh-6 pt-6 lg:mt-20 md:px-0 px-2">
-                  <div className="w-[40%]">
-                    <p class="text-white">Welcome!</p>
-                  <p class="text-xl lg:text-3xl mt-3 font-medium pb-0 mb-0 capitalize">
-                    {user.name}
-                  </p>
-                  <p class="text-xs lg:text-sm text-slate-700 pb-3 font-medium">
-                    {user.email}
-                  </p>
-                  <p class="text-white text-sm lg:text-sm">
-                    Here's a summary of your account. Have fun!
-                  </p>
-                  </div>
-                  
-
-                  <div>
-                    <img className="w-[110f%]" src={gif} alt="recording" />
-                  </div>
-                </div>
-
-                <div className="lg:w-[50%] md:flex md:justify-end md:mt-12 md:px-0 px-2">
-                  <div className="space-y-10">
-                    <div className="flex gap-2 px-5 pt-3 rounded-lg text-white bg-black">
-                      <div className="flex ">
-                        <BsCurrencyDollar size={30} className="mt-3 rotate-icon" />
-                        <FaCoins size={40} className="" />
-                      </div>
-                      <div className="flex gap-20">
-                        <p className="font-semibold text-3xl">${mainAccountBalance}</p>
-                        <p className="text-sm text-white pt-3">Available Balance</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between px-5 pt-3 rounded-t-lg text-white bg-black">
-                        <div className="fl">
-                          <p className="text-xs text-white">Earnings/Day</p>
-                          <p className="font-semibold text-2xl">$0.00</p>
-                        </div>
-                        <div className="flex ">
-                        <FaChartPie className="mt-4" />
-                        </div>
-                      </div>
-                      <div className="flex justify-between px-5 pt-3 border-y border-gray-500 text-white bg-black">
-                        <div className="fl">
-                          <p className="text-xs text-white">Total Deposit</p>
-                          <p className="font-semibold text-2xl">${depositBalance}</p>
-                        </div>
-                        <div className="flex ">
-                        <FaChartPie className="mt-4" />
-                        </div>
-                      </div>
-                      <div className="flex justify-between px-5 pt-3 rounded-b-lg text-white bg-black">
-                        <div className="fl">
-                          <p className="text-xs text-white">Total Withdrawal</p>
-                          <p className="font-semibold text-2xl">$0.00</p>
-                        </div>
-                        <div className="flex ">
-                        <FaChartPie className="mt-4" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                  </section>
-
-                  <div className="z-10 w-full">
-                <Widget2 />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
     </div>
   );
 };
 
-export default Dashboardx;
+export default Adminprofile;
