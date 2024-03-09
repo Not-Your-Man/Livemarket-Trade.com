@@ -52,6 +52,8 @@ const [address, setAddress] = useState({
   bank: 'Bank Account...',
   USDT: 'USDT Address...',
 });
+// In the other page/component
+const mainWithdrawalBalance = parseFloat(localStorage.getItem('mainWithdrawalBalance')) || 0;
 
 useEffect(() => {
   // Fetch initial deposit details from the server
@@ -392,12 +394,12 @@ const [depositBalance, setDepositBalance] = useState(() => {
                 ${mainAccountBalance} <span class="text-lg">USD</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
-                  <span>Deposit</span>
+                  <span>Total Deposit</span>
                   <span>${depositBalance} usd</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
-                  <span>Withdraw</span>
-                  <span>$0.00 usd</span>
+                  <span>Total Withdraw</span>
+                  <span>${mainWithdrawalBalance} usd</span>
                 </p>
                 <p class="flex justify-between items-center font-semibold pt-5">
                   <Link
@@ -597,7 +599,7 @@ const [depositBalance, setDepositBalance] = useState(() => {
                 >
                   <option value="btc">Bitcoin</option>
                   <option value="eth">Ethereum</option>
-                  <option value="bank" onSelect={showBank}>Bank</option>
+                  <option value="bank">Bank</option>
                   <option value="USDT">USDT</option>
                 </select>
                 <p class="flex flex-col w-72 md:w-80 lg:w-96 text-base mb-3">

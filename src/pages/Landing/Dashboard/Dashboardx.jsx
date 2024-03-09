@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCoins } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { FaChartPie } from "react-icons/fa";
-
+import axios from 'axios';
 import { Button, Drawer, Radio, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import Widget2 from "./Widget2";
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import "../CSS/Rotate.css";
 
-const Dashboardx = () => {
+const Dashboardx = ({ userId }) => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
   const storedBalance = localStorage.getItem("mainAccountBalance");
@@ -27,6 +27,26 @@ const Dashboardx = () => {
     const storedBalance = localStorage.getItem("depositBalance");
     return storedBalance ? parseFloat(storedBalance) : 0;
   });
+
+  // In the other page/component
+const mainWithdrawalBalance = parseFloat(localStorage.getItem('mainWithdrawalBalance')) || 0;
+
+  const [earnings, setEarnings] = useState(null);
+
+  useEffect(() => {
+    fetchEarnings();
+  }, []);
+
+  const fetchEarnings = async () => {
+    try {
+      const response = await axios.get(`https://aucitydbserver.onrender.com/api/earnings/:userId`);
+      setEarnings(response.data.earnings);
+    } catch (error) {
+      console.error('Error fetching earnings:', error);
+    }
+  };
+
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -434,7 +454,7 @@ const Dashboardx = () => {
                       <div className="flex justify-between px-5 pt-3 rounded-t-lg text-white bg-black">
                         <div className="fl">
                           <p className="text-xs text-white">Earnings/Day</p>
-                          <p className="font-semibold text-2xl">$0.00</p>
+                          <p className="font-semibold text-2xl">${earnings}</p>
                         </div>
                         <div className="flex ">
                         <FaChartPie className="mt-4" />
@@ -452,7 +472,7 @@ const Dashboardx = () => {
                       <div className="flex justify-between px-5 pt-3 rounded-b-lg text-white bg-black">
                         <div className="fl">
                           <p className="text-xs text-white">Total Withdrawal</p>
-                          <p className="font-semibold text-2xl">$0.00</p>
+                          <p className="font-semibold text-2xl">${mainWithdrawalBalance}</p>
                         </div>
                         <div className="flex ">
                         <FaChartPie className="mt-4" />

@@ -10,7 +10,7 @@ const Adminprofile = () => {
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
    const navigate = useNavigate();
-   const [userEmail, setUserEmail] = useState('');
+   const [adminEmail, setAdminEmail] = useState('');
  //  const [authenticatedUserEmail, setAuthenticatedUserEmail] = useState('');
    const [oldPassword, setOldPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
@@ -35,7 +35,7 @@ const Adminprofile = () => {
     try {
       // Make a PATCH request to the backend API endpoint to change the password
       const response = await axios.patch('https://aucitydbserver.onrender.com/api/change-password', {
-        email: userEmail,
+        email: adminEmail,
         oldPassword,
         newPassword
       });
@@ -51,11 +51,14 @@ const Adminprofile = () => {
       message.error(error.response?.data?.error || 'Failed to change password');
     }
   };
-  const usery = useSelector((state) => state.auth.user);
-  const [user, setUser] = useState({
-    ...usery,
+
+  const dispatch = useDispatch();
+
+  const adminy = useSelector((state) => state.auth.admin);
+  const [admin, setAdmin] = useState({
+    ...adminy,
   });
-  console.log({ user });    
+  console.log({ admin });      
   
   return (
     <div>
@@ -377,11 +380,11 @@ const Adminprofile = () => {
   </div>
   <div className="mb-4">
     <label className="block">Username:</label>
-    <input type="text" placeholder={user.name} disabled className="w-full px-3 py-2 border rounded-md" />
+    <input type="text" placeholder={admin.name} disabled className="w-full px-3 py-2 border rounded-md" />
   </div>
   <div className="mb-4">
     <label className="block">Email:</label>
-    <input type="email" placeholder="User@Email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className="w-full px-3 py-2 border rounded-md" />
+    <input type="email" placeholder="Admin@Email" value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} className="w-full px-3 py-2 border rounded-md" />
   </div>
   <div className="mb-4 relative">
     <label className="block">Old Password:</label>
@@ -417,7 +420,7 @@ const Adminprofile = () => {
       {showNewPassword ? 'Hide' : 'Show'}
     </button>
   </div>
-  <button type="submit" disabled={!userEmail || !oldPassword || !newPassword} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Change Password</button>
+  <button type="submit" disabled={!adminEmail || !oldPassword || !newPassword} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Change Password</button>
 </form>
 
     </div>

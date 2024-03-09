@@ -123,7 +123,7 @@ const Footer = () => {
                             </div>
                             <div class="phonenum text-sm">
                                 <div class="phone text-gray-200 font-bold default_pointer_cs default_pointer_land">Phone Contact</div>
-                                <div class="phone text-gray-400 my-1 text-sm">+1 (555) - 6488</div>
+                                <div class="phone text-gray-400 my-1 text-sm">+1 (315) 617-0003</div>
                             </div>
                         </section>
                         <section class="icon-section"></section>
@@ -157,7 +157,7 @@ const Footer = () => {
                             </div>
                             <div class="text-sm">
                                 <div class="email  text-gray-200 font-bold">Location</div>
-                                <div class="phone text-gray-400 my-1 text-sm">firtradeaucity.online</div>
+                                <div class="phone text-gray-400 my-1 text-sm">firstradeaucity.online</div>
                             </div>
                         </section>
                         <section class="icon-section"></section>

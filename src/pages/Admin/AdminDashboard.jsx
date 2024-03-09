@@ -19,6 +19,7 @@ const AdminDashboard = () => {
   const [placement, setPlacement] = useState("left");
   const storedBalance = localStorage.getItem("mainAccountBalance");
   const [users, setUsers] = useState([]);
+  const [showTable, setShowTable] = useState(true); // State variable to manage table visibility
 
   
   
@@ -71,6 +72,10 @@ const AdminDashboard = () => {
 
   
    
+  const toggleTable = () => {
+    // Toggle the state variable when "Clients" is clicked
+    setShowTable(!showTable);
+  };
 
 
   return (
@@ -186,6 +191,28 @@ const AdminDashboard = () => {
               </svg>
               <span>Client</span>
             </Link>
+            <Link
+                    class="flex text-white hover:bg-slate-700 items-center py-3 px-3 rounded w-10/12"
+                    to="/Acct"
+                    style={{ color: "rgb(82, 100, 132)" }}
+                  >
+                    <svg
+                      stroke="currentColor"
+                      fill="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      class="mr-4"
+                      height="25"
+                      width="25"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
+                      </g>
+                    </svg>
+                    <span className="text-white">Account</span>
+                  </Link>
             <Link
               class="flex text-black hover:bg-slate-200 items-center py-3 px-3 rounded w-10/12"
               to="/Acct"
@@ -334,6 +361,28 @@ const AdminDashboard = () => {
                         <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
                       </g>
                     </svg>
+                    <span className="text-white">Account</span>
+                  </Link>
+                  <Link
+                    class="flex text-white hover:bg-slate-700 items-center py-3 px-3 rounded w-10/12"
+                    to="/Earnings"
+                    style={{ color: "rgb(82, 100, 132)" }}
+                  >
+                    <svg
+                      stroke="currentColor"
+                      fill="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 24 24"
+                      class="mr-4"
+                      height="25"
+                      width="25"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g>
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path d="M12.414 5H21a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7.414l2 2zM4 5v14h16V7h-8.414l-2-2H4zm8 7V9l4 4-4 4v-3H8v-2h4z"></path>
+                      </g>
+                    </svg>
                     <span className="text-white">Action</span>
                   </Link>
 
@@ -419,7 +468,7 @@ const AdminDashboard = () => {
   {/* dashnav */}
 
   {/* Main-content */}
-  <div className="w-[40%]">
+  <div className="w-[100%]">
                     <p class="text-white">Welcome!</p>
                   <p class="text-xl lg:text-3xl mt-3 font-medium pb-0 mb-0 capitalize">
                     {admin.name}
@@ -440,12 +489,20 @@ const AdminDashboard = () => {
           <div className="flex items-center">
             <FaUserCircle size={30} className="mr-2" />
           </div>
-          <p className="text-3xl font-semibold">Clients</p>
+           {/* Other elements */}
+            {/* "Clients" text with onClick event handler */}
+            <p
+              className="text-3xl font-semibold cursor-pointer"
+              onClick={toggleTable}
+            >
+              Clients
+            </p>
         </div>
-        <div className="text-sm">Clients that has signed up</div>
+        <div className="text-sm">Clients Details</div>
       </div>
 
       {/* Card 2 */}
+      <Link to="/Earnings">
       <div className="bg-white rounded-lg shadow-md p-6 text-black">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
@@ -454,11 +511,11 @@ const AdminDashboard = () => {
   <FaArrowDown size={20}  />
 </div>
           </div>
-          <p className="text-3xl font-semibold">Action</p>
+          <p className="text-3xl font-semibold">Earnings</p>
         </div>
-        <div className="text-sm">Change price action</div>
+        <div className="text-sm">Update clients earnings</div>
       </div>
-
+</Link>
       {/* Card 3 */}
       <Link to="/Acct">
       <div className="bg-white rounded-lg shadow-md p-6 text-black">
@@ -476,14 +533,19 @@ const AdminDashboard = () => {
 
   
 </div>
- {/* Table component */}
+  {/* Main-content */}
+  
   <p className="py-2 flex justify-center text-white uppercase text-center font-bold">Clients Details</p>
 <div className="px-6 pb-8 flex justify-center">
- 
+         
+            <div className="w-[100%]">
+ {/* Table component */}
   <div className="flex-1 overflow-y-auto">
     <div class="relative overflow-hidden shadow-md rounded-lg">
+      {/* Render the table based on the state variable */}
+      {showTable && (
       <table class="table-fixed w-full text-left text-xs md:text-sm"> {/* Reduced font size from text-xs to text-sm */}
-        <thead class="text-gray-200 uppercase bg-gray-500">
+        <thead class="text-white uppercase bg-gray-500">
           <tr>
             <td class="py-1 md:py-2 border text-center font-bold p-2 md:p-3" contenteditable="true">Name</td> {/* Reduced padding from p-3 to p-2 */}
             <td class="py-1 md:py-2 border text-center font-bold p-2 md:p-3" contenteditable="true">Email</td> {/* Reduced padding from p-3 to p-2 */}
@@ -498,14 +560,17 @@ const AdminDashboard = () => {
           </tr>
         ))}
       </table>
-    </div>
+    )}
+        </div>
+         </div>
   </div>
+  </div>
+         
 </div>
 
 </div>
 </div>
 </div>      
-</div>
   );
 };
 

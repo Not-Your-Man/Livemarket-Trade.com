@@ -15,6 +15,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AccountDetails from "./pages/Admin/AccountDetails";
 import Adminprofile from "./pages/Admin/Adminprofile";
 import Adminlogin from "./pages/Admin/Adminlogin";
+import UpdateEarnings from "./pages/Admin/UpdateEarnings";
 
 //import Dashboard from "./pages/Admin/Dashboard";
 //import Clients from "./pages/Admin/Clients";
@@ -26,7 +27,7 @@ import Adminlogin from "./pages/Admin/Adminlogin";
 //import UserListPage from "./pages/Admin/UserListPage";
 
 const App = () => {
-  const { email } = useSelector((state) => state.auth.user_details);
+  const { email } = useSelector((state) => state.auth.user_details || {});
   const props = { email };
 
   return (
@@ -46,7 +47,8 @@ const App = () => {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/Acct" element={<AccountDetails />} />
           <Route path="/admin-profile" element={<Adminprofile />} />
-          <Route path="/admin-login" element={<Adminlogin />} />
+          <Route path="/Admin/admin-login" element={<Adminlogin />} />
+          <Route path="/Earnings" element={<UpdateEarnings/>} />
       
       
        {/** <Route path="/admin/*" element={<AppRoutes />} /> */}

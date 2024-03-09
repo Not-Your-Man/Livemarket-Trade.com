@@ -79,17 +79,29 @@ const Faq = () => {
                             aria-controls="radix-:r6:" 
                             aria-expanded="false" 
                             data-state="closed" 
+                            onClick={toggleContent}
                             data-orientation="vertical" 
                             id="radix-:r5:" 
                             class="flex flex-1 items-center justify-between py-4 transition-all [&amp;[data-state=open]>svg]:rotate-180 
-                            font-bold text-sm hover:no-underline default_pointer_cs default_pointer_land" 
+                            font-bold text-sm hover:no-underline" 
                             data-radix-collection-item="">What payment methods do you support?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                class="h-4 w-4 shrink-0 transition-transform duration-200">
+                                class= {`h-4 w-4 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
+                            <div hidden={!isOpen} data-state="closed" id="radix-:r4:" role="region" aria-labelledby="radix-:r3:" data-orientation="vertical" 
+                        style={{
+                            height: isOpen ? 'auto' : '0',
+                            transition: 'height 0.3s ease-out',
+                            overflow: 'hidden',
+                          }} 
+                          className={`overflow-hidden text-sm ${isOpen ? 'transition ease-in-out duration-300' : 'transition ease-in-out duration-300'}`} 
+                        // style={{--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);}}
+                        >
+                            <div className={`pb-4 pt-0 default_cursor_cs default_cursor_land ${isOpen ? 'opacity-100' : 'opacity-0'}`}>We support methods ranging from Bank Transfer and all crypto currencies payment methods.</div>
+                        </div>
                         </h3>
                         <div data-state="closed" id="radix-:r6:" hidden="" role="region" aria-labelledby="radix-:r5:" data-orientation="vertical" 
                         class="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down" 
@@ -113,6 +125,17 @@ const Faq = () => {
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
+                            <div hidden={!isOpen} data-state="closed" id="radix-:r4:" role="region" aria-labelledby="radix-:r3:" data-orientation="vertical" 
+                        style={{
+                            height: isOpen ? 'auto' : '0',
+                            transition: 'height 0.3s ease-out',
+                            overflow: 'hidden',
+                          }} 
+                          className={`overflow-hidden text-sm ${isOpen ? 'transition ease-in-out duration-300' : 'transition ease-in-out duration-300'}`} 
+                        // style={{--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);}}
+                        >
+                            <div className={`pb-4 pt-0 default_cursor_cs default_cursor_land ${isOpen ? 'opacity-100' : 'opacity-0'}`}>Be guaranteed your funds are safe with us, backed with trading policies.</div>
+                        </div>
                         </h3>
                         <div 
                         data-state="closed" 
@@ -142,6 +165,17 @@ const Faq = () => {
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
+                            <div hidden={!isOpen} data-state="closed" id="radix-:r4:" role="region" aria-labelledby="radix-:r3:" data-orientation="vertical" 
+                        style={{
+                            height: isOpen ? 'auto' : '0',
+                            transition: 'height 0.3s ease-out',
+                            overflow: 'hidden',
+                          }} 
+                          className={`overflow-hidden text-sm ${isOpen ? 'transition ease-in-out duration-300' : 'transition ease-in-out duration-300'}`} 
+                        // style={{--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);}}
+                        >
+                            <div className={`pb-4 pt-0 default_cursor_cs default_cursor_land ${isOpen ? 'opacity-100' : 'opacity-0'}`}>We provide 24/7 round the clock customer service support.</div>
+                        </div>
                         </h3>
                         <div 
                         data-state="closed" 
@@ -168,6 +202,17 @@ const Faq = () => {
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
+                            <div hidden={!isOpen} data-state="closed" id="radix-:r4:" role="region" aria-labelledby="radix-:r3:" data-orientation="vertical" 
+                        style={{
+                            height: isOpen ? 'auto' : '0',
+                            transition: 'height 0.3s ease-out',
+                            overflow: 'hidden',
+                          }} 
+                          className={`overflow-hidden text-sm ${isOpen ? 'transition ease-in-out duration-300' : 'transition ease-in-out duration-300'}`} 
+                        // style={{--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);}}
+                        >
+                            <div className={`pb-4 pt-0 default_cursor_cs default_cursor_land ${isOpen ? 'opacity-100' : 'opacity-0'}`}>Our platform is avaliable for all the devices.</div>
+                        </div>
                         </h3>
                         <div data-state="closed" id="radix-:rc:" hidden="" 
                         role="region" aria-labelledby="radix-:rb:" data-orientation="vertical" 
@@ -186,6 +231,17 @@ const Faq = () => {
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
+                            <div hidden={!isOpen} data-state="closed" id="radix-:r4:" role="region" aria-labelledby="radix-:r3:" data-orientation="vertical" 
+                        style={{
+                            height: isOpen ? 'auto' : '0',
+                            transition: 'height 0.3s ease-out',
+                            overflow: 'hidden',
+                          }} 
+                          className={`overflow-hidden text-sm ${isOpen ? 'transition ease-in-out duration-300' : 'transition ease-in-out duration-300'}`} 
+                        // style={{--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width);}}
+                        >
+                            <div className={`pb-4 pt-0 default_cursor_cs default_cursor_land ${isOpen ? 'opacity-100' : 'opacity-0'}`}>We provide seamless withdrawal process via Email transaction (Easy & Secure).</div>
+                        </div>
                         </h3>
                         <div data-state="closed" id="radix-:re:" hidden="" role="region"
                         aria-labelledby="radix-:rd:" data-orientation="vertical" 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { Button, Drawer, Radio, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +17,9 @@ const Withdraw = () => {
     const [withdrawalAmount, setWithdrawalAmount] = useState(0);
   const [walletAddress, setWalletAdress] = useState('');
   const storedBalance = localStorage.getItem("mainAccountBalance");
+  const [mainWithdrawalBalance, setMainWithdrawalBalance] = useState(0);
+
+  
   
   const [mainAccountBalance, setMainAccountBalance] = useState(() => {
     const storedBalance = localStorage.getItem("mainAccountBalance");
@@ -27,9 +30,17 @@ const Withdraw = () => {
     const storedBalance = localStorage.getItem("depositBalance");
     return storedBalance ? parseFloat(storedBalance) : 0;
   });
+  const [withdrawalHistory, setWithdrawalHistory] = useState([]);
+  
+  const [totalWithdrawal, setTotalWithdrawal] = useState(() => {
+    const storedWithdrawalBalance = localStorage.getItem("mainWithdrawalBalance");
+    return storedWithdrawalBalance ? parseFloat(storedWithdrawalBalance) : 0;
+  });
+  
   const showDrawer = () => {
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
   };
@@ -50,22 +61,79 @@ const Withdraw = () => {
     
   
     const handleWithdraw = () => {
+      // Check if withdrawal method and amount are set
+      if (!withdrawalMethod || withdrawalAmount === 0) {
+        // If not set, show a message or toast to prompt the user to input withdrawal method and amount
+        notify("Please select withdrawal method and enter withdrawal amount.");
+        return;
+      }
+    
       // Logic to perform the withdrawal action
       // You can implement API calls or any other logic here
       console.log('Withdrawal action performed');
-      
+    
+      // Update withdrawal history
+      const newTransaction = {
+        id: Math.random().toString(36).substr(2, 9), // Generate a random transaction ID
+        amount: withdrawalAmount,
+        time: new Date().toLocaleString(), // Get current time
+      };
+      const updatedHistory = [...withdrawalHistory, newTransaction];
+      setWithdrawalHistory(updatedHistory);
+    
+      // Save withdrawal history to local storage
+      localStorage.setItem('withdrawalHistory', JSON.stringify(updatedHistory));
+    
+      // Get the previous total withdrawal amount from local storage
+      const previousTotalWithdrawal = parseFloat(localStorage.getItem('mainWithdrawalBalance')) || 0;
+    
+      // Calculate the new total withdrawal amount by adding the previous total and the withdrawal amount
+      const totalWithdrawal = previousTotalWithdrawal + withdrawalAmount;
+    
+      /// Calculate the new total withdrawal amount by adding the previous total and the withdrawal amount
+const newTotalWithdrawal = previousTotalWithdrawal + withdrawalAmount;
+
+// Update total withdrawal amount
+setTotalWithdrawal(newTotalWithdrawal);
+localStorage.setItem('mainWithdrawalBalance', newTotalWithdrawal.toString());
+
+    
       // Open the withdrawal receipt modal after successful withdrawal
       setIsModalOpen(true);
+    
+      // Generate email link for withdrawal process
+      const emailLink = `mailto:invest@firstradeaucity.online?subject=Withdrawal Process`;
+    
+      // Open the email client with the generated email link
+      window.location.href = emailLink;
     };
+    
+    
+     // Effect to load withdrawal history from local storage when component mounts
+  useEffect(() => {
+    const storedHistory = JSON.parse(localStorage.getItem('withdrawalHistory'));
+    if (storedHistory) {
+      setWithdrawalHistory(storedHistory);
+    }
+  }, []);
   
     const closeModal = () => {
       setIsModalOpen(false);
     };
   
-    const downloadReceipt = () => {
+    /*const downloadReceipt = () => {
       // Logic to download the withdrawal receipt
       console.log('Downloading receipt');
-    }
+    }*/
+  
+    const handleClearHistory = () => {
+    // Clear withdrawal history state
+  setWithdrawalHistory([]);
+
+  // Clear withdrawal history from local storage
+  localStorage.removeItem('withdrawalHistory');
+    };
+  
 
   return (
     <div>
@@ -262,12 +330,12 @@ const Withdraw = () => {
                 ${mainAccountBalance} <span class="text-lg">USD</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
-                  <span>Deposit</span>
+                  <span>Total Deposit</span>
                   <span>${depositBalance} usd</span>
                 </p>
                 <p class="flex justify-between text-white mt-3 font-medium text-sm">
-                  <span>Withdraw</span>
-                  <span>$0.00 usd</span>
+                  <span>Total Withdraw</span>
+                  <span>${totalWithdrawal} usd</span>
                 </p>
                 <p class="flex justify-between items-center font-semibold pt-5">
                   <Link
@@ -431,7 +499,7 @@ const Withdraw = () => {
                   <option value="btc">Bitcoin</option>
                   <option value="eth">Ethereum (ERC20)</option>
                   <option value='usdt'>USDT (ERC20)</option>
-                  <option value='usdt'>Bank </option>
+                  <option value='bank'>Bank </option>
                 </select>
               </div>
               <div className="flex flex-col w-72 md:w-80 lg:w-96 text-base">
@@ -454,38 +522,53 @@ const Withdraw = () => {
             onChange={(e) => setWithdrawalAmount(parseFloat(e.target.value))}
           />
         </p>
-        <a href="mailto:invest@firstradeaucity.com?subject=Wiithdrwal Process">
-<button /*onClick={handleWithdraw}*/ className="px-3 py-1.5 md:w-72_ md:w-80 lg:w-full md:py-2.5 text-sm bg-red-500 text-white font-medium rounded uppercase mt-3 md:mt-0">
-                Continue to withdraw
-              </button></a>
+        
+        <button 
+  onClick={handleWithdraw} 
+  className="mt-3 bg-red-500 text-white rounded-md text-xs"
+  style={{ padding: '4px 8px', fontSize: '12px' }}
+>
+  Continue to withdraw
+</button>
+
+
+
+
+
+               {/* Withdrawal receipt modal */}
+            {/* Withdrawal history */}
+            <div className="p-2">
+              <h2 className="text-sm font-semibold mb-2">Transaction History</h2>
+              {/* Transaction history table */}
+              <div className="overflow-auto max-h-48">
+                <table className="border-collapse w-full text-xs">
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-300 bg-gray-200 px-2 py-1 rounded-tl-md">Transaction ID</th>
+                      <th className="border border-gray-300 bg-gray-200 px-2 py-1">Amount</th>
+                      <th className="border border-gray-300 bg-gray-200 px-2 py-1 rounded-tr-md">Time of withdrawal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Transaction history items */}
+                    {withdrawalHistory.map((transaction) => (
+                      <tr key={transaction.id}>
+                        <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.id}</td>
+                        <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.amount}</td>
+                        <td className="border border-transparent px-2 py-1 whitespace-normal">{transaction.time}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {/* Clear history button */}
+              <button onClick={handleClearHistory} className="mt-2 bg-red-500 text-white px-1 py-0.5 rounded-md text-xs">Clear</button>
+            </div>
             </div>
           </div>
         </section>
       </div>
-      <div>
- {/* Withdrawal receipt modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-md p-4">
-            <div className="flex justify-between">
-              {/* Close button */}
-              <button onClick={closeModal} className="text-red-500">
-                Close
-              </button>
-              {/* Download button */}
-              <button onClick={downloadReceipt} className="text-green-500">
-                Download
-              </button>
-            </div>
-            {/* Receipt content */}
-            <h2 className="text-lg font-semibold">Withdrawal Receipt</h2>
-            <p>Description: {description}</p>
-            <p>Amount: ${withdrawalAmount.toFixed(2)}</p>
-            <p>Wallet Address: {walletAddress}</p>
-          </div>
-        </div>
-      )}
- </div>
+     
           </div>
         </div>
       </div>
