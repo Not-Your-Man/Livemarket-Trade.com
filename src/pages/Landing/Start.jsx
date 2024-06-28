@@ -1,16 +1,18 @@
 import React from 'react';
-import { MdArrowRightAlt, MdMenuOpen } from "react-icons/md";
+import { MdArrowRightAlt} from "react-icons/md";
 import { Link } from 'react-router-dom';
 
 
 const Start = () => {
   return (
+    
     <div className='relative bg-black md:h-[80vh] md:mt-32 md:px-5 px-3 font-Poppins'>
-        <div className=''>
+        <div className=''> 
             <div className='md:flex md:space-x-5 md:space-y-0 space-y-3'>
+          
                 <div className='md:w-1/3 md:pb-0 pb-8'>
                     <div data-aos="fade-right" className='flex space-x-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mt-[4px] text-[#0052FF]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mt-[4px] text-[#0052FF]">
                             <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 
                             5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 
                             01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z">
@@ -33,22 +35,22 @@ const Start = () => {
                         <p data-aos="fade-right" className='text-sm text-gray-200'>We all have to start somewhere. Let us help get you on the right track as you start your investing journey. With this innovative platform you'll be ready to start in no time. The fund is started in literally several minutes with minimal costs using blockchain-based infrastructure that infos. We believe it is incredibly important to redistribute this power & profitability.</p>
                     </div>
                     <div>
-                        <Link to="/Auth">
+                        <a href='https://youtu.be/_YVQN6_nkfs?si=MzJ4DI2JNA9h1LkK'>
                         <button data-aos="fade-up" className='bg-[#0052FF] md:mt-16 mt-10 flex space-x-3 text-white font-semibold rounded-lg px-5 py-3 '>
-                            <p>Create an account</p> 
+                            <p>Learn to Trade</p> 
                             <MdArrowRightAlt size={25}/>
                         </button>
-                        </Link>
+                        </a>
                     </div>
                 </div>
                 <div className='md:w-1/3 space-y-3'>
                     <div data-aos="fade-down" className='bg-white/10 px-3 py-5 rounded-lg'>
                         <div className='flex'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-[#0052FF]">
-                                <path fill-rule="evenodd" d="M10.362 1.093a.75.75 0 
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2 text-[#0052FF]">
+                                <path fillRule="evenodd" d="M10.362 1.093a.75.75 0 
                                 00-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925zM18 
                                 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0018 14.25V6.443zm-8.75 
-                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clip-rule="evenodd">
+                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clipRule="evenodd">
                                 </path>
                             </svg>
                             <p className='uppercase text-white text-xs font-semibold tracking-tighter'>Registration</p>
@@ -65,11 +67,11 @@ const Start = () => {
                     </div>
                     <div data-aos="fade-up" className='bg-white/10 px-3 py-5 rounded-lg'>
                         <div className='flex'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-[#0052FF]">
-                                <path fill-rule="evenodd" d="M10.362 1.093a.75.75 0 
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2 text-[#0052FF]">
+                                <path fillRule="evenodd" d="M10.362 1.093a.75.75 0 
                                 00-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925zM18 
                                 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0018 14.25V6.443zm-8.75 
-                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clip-rule="evenodd">
+                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clipRule="evenodd">
                                 </path>
                             </svg>
                             <p className='uppercase text-white text-xs font-semibold tracking-tighter'>Investment Plans</p>
@@ -88,11 +90,11 @@ const Start = () => {
                 <div className='md:w-1/3 space-y-3'>
                     <div data-aos="fade-down" className='bg-white/10 px-3 py-5 rounded-lg'>
                         <div className='flex'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-[#0052FF]">
-                                <path fill-rule="evenodd" d="M10.362 1.093a.75.75 0 
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2 text-[#0052FF]">
+                                <path fillRule="evenodd" d="M10.362 1.093a.75.75 0 
                                 00-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925zM18 
                                 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0018 14.25V6.443zm-8.75 
-                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clip-rule="evenodd">
+                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clipRule="evenodd">
                                 </path>
                             </svg>
                             <p className='uppercase text-white text-xs font-semibold tracking-tighter'>Financial Growth</p>
@@ -109,11 +111,11 @@ const Start = () => {
                     </div>
                     <div data-aos="fade-up" className='bg-white/10 px-3 py-5 rounded-lg'>
                         <div className='flex'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-2 text-[#0052FF]">
-                                <path fill-rule="evenodd" d="M10.362 1.093a.75.75 0 
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2 text-[#0052FF]">
+                                <path fillRule="evenodd" d="M10.362 1.093a.75.75 0 
                                 00-.724 0L2.523 5.018 10 9.143l7.477-4.125-7.115-3.925zM18 
                                 6.443l-7.25 4v8.25l6.862-3.786A.75.75 0 0018 14.25V6.443zm-8.75 
-                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clip-rule="evenodd">
+                                12.25v-8.25l-7.25-4v7.807a.75.75 0 00.388.657l6.862 3.786z" clipRule="evenodd">
                                 </path>
                             </svg>
                             <p className='uppercase text-white text-xs font-semibold tracking-tighter'>Withdrawals</p>

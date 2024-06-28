@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from "../../assets/images/first-trade.jpg";
+import logo from "../../assets/images/Livemarket-Trade.png";
 
 
 const Logo = () => {
   return (
     <div>
         <div>
-            <img className='w-44' src={logo} alt="first-trade" />
+            <img className='w-40' src={logo} alt="livemarket-trade" />
         </div>
     </div>
   )

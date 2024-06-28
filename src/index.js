@@ -1,26 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client'; // Use createRoot for React 18
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store} from './Redux/store';
+import { Provider } from 'react-redux';
+import { store } from './Redux/store';
+import { persistor } from './Redux/store';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import './index.css'; // Import your CSS file
 import App from './App';
-// import { ConfigProvider } from "antd";
+
+// Initialize AOS (if needed)
 AOS.init();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    {/* <PersistGate persistor={persistor}> */}
+    <PersistGate persistor={persistor}>
       <BrowserRouter>
           <App />
       </BrowserRouter>
-    {/* </PersistGate> */}
+    </PersistGate>
   </Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

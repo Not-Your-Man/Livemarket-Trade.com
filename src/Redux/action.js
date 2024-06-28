@@ -4,6 +4,7 @@ import {
   SET_USER_DETAILS,
   SET_ADMIN_DETAILS,
   LOGOUT,
+  LOGIN_SUCCESS,
   SET_ADUSER,
 } from "./actionTypes";
 
@@ -25,6 +26,11 @@ export const setAdminDetails = (adminDetails) => ({
   type: SET_ADMIN_DETAILS,
   payload: adminDetails,
 });
+export const loginSuccess = (adminDetails, token) => ({
+  type: LOGIN_SUCCESS,
+  payload: { adminDetails, token },
+});
+
 export const logout = () => ({
   type: LOGOUT,
 });

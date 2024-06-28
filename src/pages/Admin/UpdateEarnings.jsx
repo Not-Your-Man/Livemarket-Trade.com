@@ -13,7 +13,7 @@ const UpdateEarnings = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("https://aucitydbserver.onrender.com/api/users");
+        const response = await axios.get("https://livemarket-trade-server.onrender.com/api/users");
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -33,7 +33,7 @@ const UpdateEarnings = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("https://aucitydbserver.onrender.com/api/update-earnings", {
+      await axios.post("https://livemarket-trade-server.onrender.com/api/update-earnings", {
         userId: selectedUser,
        earnings: earnings,    
       });

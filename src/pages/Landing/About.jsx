@@ -8,12 +8,12 @@ const About = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" 
             className="w-6 h-6 default_cursor_cs default_cursor_land">
                 <path d="M16.5 7.5h-9v9h9v-9z" className="default_cursor_cs default_cursor_land"></path>
-                <path fill-rule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 
+                <path fillRule="evenodd" d="M8.25 2.25A.75.75 0 019 3v.75h2.25V3a.75.75 0 011.5 0v.75H15V3a.75.75 
                 0 011.5 0v.75h.75a3 3 0 013 3v.75H21A.75.75 0 0121 9h-.75v2.25H21a.75.75 0 010 1.5h-.75V15H21a.75.75 
                 0 010 1.5h-.75v.75a3 3 0 01-3 3h-.75V21a.75.75 0 01-1.5 0v-.75h-2.25V21a.75.75 0 01-1.5 0v-.75H9V21a.75.75 
                 0 01-1.5 0v-.75h-.75a3 3 0 01-3-3v-.75H3A.75.75 0 013 15h.75v-2.25H3a.75.75 0 010-1.5h.75V9H3a.75.75 
                 0 010-1.5h.75v-.75a3 3 0 013-3h.75V3a.75.75 0 01.75-.75zM6 6.75A.75.75 0 016.75 6h10.5a.75.75 
-                0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clip-rule="evenodd" 
+                0 01.75.75v10.5a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V6.75z" clipRule="evenodd" 
                 className="default_cursor_cs default_cursor_land">
                 </path>
             </svg>
@@ -23,7 +23,7 @@ const About = () => {
         <h3 className='lg:text-4xl md:text-3xl text-3xl md:text-center text-left text-white py-5'>We'll help you grow your money.</h3>
         <div className='flex justify-center'>
 
-            <p className='md:text-center text-left text-white md:w-[39%]'>Firstradeaucity innovative trading platforms and tools provide the power and reliability you need to feel more confident in your trading.</p>
+            <p className='md:text-center text-left text-white md:w-[39%]'>Livemarket Trade innovative trading platforms and tools provide the power and reliability you need to feel more confident in your trading.</p>
         </div>
 
         <div className='md:flex md:justify-between md:mx-32 pt-10 grid grid-cols-2 gap-10'>
@@ -32,11 +32,11 @@ const About = () => {
                 <div className="p-4 rounded-full bg-[#0052FF20] default_cursor_cs default_cursor_land">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
                     className="w-6 h-6 text-[#0052FF] default_cursor_cs default_cursor_land">
-                        <path fill-rule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 
+                        <path fillRule="evenodd" d="M15.22 6.268a.75.75 0 01.968-.432l5.942 2.28a.75.75 
                         0 01.431.97l-2.28 5.941a.75.75 0 11-1.4-.537l1.63-4.251-1.086.483a11.2 11.2 
                         0 00-5.45 5.174.75.75 0 01-1.199.19L9 12.31l-6.22 6.22a.75.75 0 11-1.06-1.06l6.75-6.75a.75.75 
                         0 011.06 0l3.606 3.605a12.694 12.694 0 015.68-4.973l1.086-.484-4.251-1.631a.75.75 0 01-.432-.97z" 
-                        clip-rule="evenodd" className="default_cursor_cs default_cursor_land">
+                        clipRule="evenodd" className="default_cursor_cs default_cursor_land">
                         </path>
                     </svg>
                 </div>
@@ -55,11 +55,11 @@ const About = () => {
                 <div className="p-4 rounded-full bg-green-600/10 default_cursor_cs default_cursor_land">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
                     className="w-6 h-6 text-green-600 default_cursor_cs default_cursor_land">
-                        <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 
+                        <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 
                         0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 
                         0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 
                         0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 
-                        0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clip-rule="evenodd">
+                        0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clipRule="evenodd">
                         </path>
                         <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 
                         0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 
@@ -87,7 +87,7 @@ const About = () => {
                     0 01-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0018 11.25c0-2.413-.393-4.735-1.119-6.904zM18.26 3.74a23.22 23.22 
                     0 011.24 7.51 23.22 23.22 0 01-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 101.409.516 24.555 24.555 
                     0 001.415-6.43 2.992 2.992 0 00.836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 00-1.415-6.43.75.75 
-                    0 10-1.409.516c.059.16.116.321.17.483z" class="default_cursor_cs default_cursor_land">
+                    0 10-1.409.516c.059.16.116.321.17.483z" className="default_cursor_cs default_cursor_land">
                     </path>
                 </svg>
             </div>

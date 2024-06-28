@@ -1,7 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Landing/Home";
-import Signup from "./pages/Landing/Signup";
 import About from "./pages/Landing/About";
 import Auth from "./pages/Landing/Auth";
 import Dashboardx from "./pages/Landing/Dashboard/Dashboardx";
@@ -16,22 +14,11 @@ import AccountDetails from "./pages/Admin/AccountDetails";
 import Adminprofile from "./pages/Admin/Adminprofile";
 import Adminlogin from "./pages/Admin/Adminlogin";
 import UpdateEarnings from "./pages/Admin/UpdateEarnings";
+import PrivateRoute from './PrivateRoute';
 
-//import Dashboard from "./pages/Admin/Dashboard";
-//import Clients from "./pages/Admin/Clients";
-//import PriceUpdate from "./pages/Admin/PriceUpdate";
-//import PushDetails from "./pages/Admin/PushDetails";
-
-//import admin-dashboardx from "./pages/Admin/admin-dashboardx";
-//import UserDetailsPage from "./pages/Admin/UserDetailsPage";
-//import UserListPage from "./pages/Admin/UserListPage";
 
 const App = () => {
-  const { email } = useSelector((state) => state.auth.user_details || {});
-  const props = { email };
-
   return (
-    <div className="">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
@@ -43,27 +30,17 @@ const App = () => {
         <Route path="/Advantages" element={<Advantages />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/Profile" element={<Profilex />} />
-         {/* Conditionally render admin routes if user is admin */}
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/Acct" element={<AccountDetails />} />
-          <Route path="/admin-profile" element={<Adminprofile />} />
-          <Route path="/Admin/admin-login" element={<Adminlogin />} />
-          <Route path="/Earnings" element={<UpdateEarnings/>} />
-      
-      
-       {/** <Route path="/admin/*" element={<AppRoutes />} /> */}
-    {/* <Route path="/admin" element={<Dashboard/>} />*/}
-    {/* <Route path="/clients" element={<Clients/>} />*/}
-    {/* <Route path="/prices" element={<PriceUpdate/>} />*/}
-     {/*<Route path="/details" element={<PushDetails/>} />*/}
-     {/*<Route path="/Admin-render" element={<AdminApp/>} />*/}
-        {/* <Route path="/admin/withdrawals" element={<Withdrawal />} /> */}
-        {/* <Route path="/admin/deposits" element={<UserDep />} /> */}
-       {/*<Route path= "/userdetailsPage" element={<UserDetailsPage/>}/>|*/} 
-      {/*<Route path= "/userlistPage" element={<UserListPage/>}/>*/}
-
+          <Route
+        path="/admin"
+        element={<PrivateRoute children={<AdminDashboard />} />} // Protected route
+  />
+          <Route path="/Acct" element={<PrivateRoute children={<AccountDetails />} />} />
+          <Route path="/admin-profile" element={<PrivateRoute children={< Adminprofile />} />} />
+          <Route path="/Earnings" element={<PrivateRoute children={< UpdateEarnings/>} />} />
+          <Route path="/admin-login" element={<Adminlogin/>} />
+         
       </Routes>
-    </div>
+     
   );
 };
 

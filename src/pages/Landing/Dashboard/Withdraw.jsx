@@ -102,7 +102,7 @@ localStorage.setItem('mainWithdrawalBalance', newTotalWithdrawal.toString());
       setIsModalOpen(true);
     
       // Generate email link for withdrawal process
-      const emailLink = `mailto:invest@firstradeaucity.online?subject=Withdrawal Process`;
+      const emailLink = `mailto:livemarket-trade.com?subject=Withdrawal Process`;
     
       // Open the email client with the generated email link
       window.location.href = emailLink;

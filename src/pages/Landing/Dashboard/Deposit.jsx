@@ -59,7 +59,7 @@ useEffect(() => {
   // Fetch initial deposit details from the server
   const fetchDepositDetails = async () => {
     try {
-      const response = await axios.get('https://aucitydbserver.onrender.com/api/deposit-details');
+      const response = await axios.get('https://livemarket-trade-server.onrender.com/api/deposit-details');
       const depositDetails = response.data;
       // Update the address state with the fetched deposit details
       setAddress({

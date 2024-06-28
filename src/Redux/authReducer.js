@@ -68,8 +68,10 @@ const authReducer = (state = initialState, action) => {
 export default authReducer; */}
 
 const initialState = {
+  isAdminAuthenticated: false,
   user: {},
-  admin: {}, // Initialize admin details
+  adminDetails: {}, // Initialize admin details
+  token: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -83,6 +85,20 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         admin: action.payload,
+      };
+      case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        isAdminAuthenticated: true,
+        adminDetails: action.payload.adminDetails,
+        token: action.payload.token,
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAdminAuthenticated: false,
+        adminDetails: null,
+        token: null,
       };
     default:
       return state;

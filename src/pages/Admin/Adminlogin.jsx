@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { setUserDetails } from '../../Redux/action';
+import { setAdminDetails } from '../../Redux/action';
+import { setToken } from '../../Redux/action';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/assets/common/Logo';
 import SyncLoader from 'react-spinners/SyncLoader';
 import { css } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+import {loginSuccess} from '../../Redux/action';
 
 
 
@@ -62,85 +64,15 @@ const Adminlogin = () => {
   const { name, email, phone, password } = formData;
 
   const isFormFilled = name !== '' && email !== '' && password !== '' && phone !== '';
-//NEW CODE
-  // const handleSignup = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       'http://localhost:3001/signup',
-  //       formData,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       }
-  //     );
-
-  //     if (!response.data.success) {
-  //       throw new Error(response.data.message || 'Signup failed');
-  //     }
-
-  //     changeTab(1);
-  //   } catch (error) {
-  //     setError(error.message || 'An error occurred during signup');
-  //   }
-  // };
 
   
 
   const [loading, setLoading] = useState(false);
-  // const handleSignup = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.post('https://aucitydbserver.onrender.com/api/signup', formData);
-
-  //     // Check if registration was successful
-  //     if (response.status === 201) {
-  //       setTimeout(() => {
-  //         setActiveTab(1)
-  //         setLoading(false); // Navigate to the login tab
-  //      }, 500);
-  //       //changeTab(1);
-  //     } else {
-  //       setError('Email already registered');
-  //       setLoading(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError('Email already registered');
-  //     setLoading(false);
-  //   }
-  // }
-
-  // const handleSignup = () => {
-  //   setLoading(true);
-  //   fetch('https://aucitydbserver.onrender.com/api/signup', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(formData)
-  //   })
-  //     .then(response => {
-  //       if (response.status === 201) {
-  //         setTimeout(() => {
-  //           setActiveTab(1);
-  //           setLoading(false); // Navigate to the login tab
-  //         }, 500);
-  //       } else {
-  //         // setError('Email already registered');
-  //         setLoading(false);
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //       // setError('Email already registered');
-  //       setLoading(false);
-  //     });
-  // };
+  
   const handleSignup = () => {
     setLoading(true);
   
-    fetch('https://aucitydbserver.onrender.com/api/admin/signup', {
+    fetch('https://livemarket-trade-server.onrender.com/api/admin/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -174,38 +106,10 @@ const Adminlogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-//END OF NEW CODE
-// const handleLogin = () => {
-//   fetch('https://aucitydbserver.onrender.com/api/login', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(formData),
-//   })
-//     .then((response) => {
-//       if (!response) {
-//         throw new Error('No response received');
-//       }
-//       if (!response.ok) {
-//         throw new Error('Login failed');
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       console.log("some data", formData); // Server checker
-//       if (data) {
-//         // console.log('Login successful');
-//         navigate('/dashboard'); // Navigate to dashboard when login is successful
-//       }
-//     })
-//     .catch((error) => {
-//       setError(error.message || 'An error occurred during login');
-//     });
-// };
+
 const handleLogin = () => {
   setLoading(true); // Set loading to true when starting the login process
-  fetch('https://aucitydbserver.onrender.com/api/admin/login', {
+  fetch('https://livemarket-trade-server.onrender.com/api/admin/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -219,10 +123,14 @@ const handleLogin = () => {
       return response.json();
     })
     .then(data => {
-      const userDetails = data.userDetails;
+      const adminDetails = data.adminDetails;
+      const token = data.token;
+      
 
     // Dispatch the action to update Redux state with user details
-    dispatch(setUserDetails(userDetails));
+    dispatch(setAdminDetails(adminDetails));
+    dispatch(setToken(token));
+    dispatch(loginSuccess(adminDetails, token));
       navigate('/admin'); // Navigate to dashboard when login is successful
     })
     .catch(error => {

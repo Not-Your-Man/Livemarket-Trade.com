@@ -21,7 +21,7 @@ function AccountDetails({ onDeposit }) {
     e.preventDefault();
     try {
       // Send data to the server
-      const response = await axios.post('https://aucitydbserver.onrender.com/api/accounts', {
+      const response = await axios.post('https://livemarket-trade-server.onrender.com/api/accounts', {
         btcWallet,
         ethWallet,
         bankAccount,

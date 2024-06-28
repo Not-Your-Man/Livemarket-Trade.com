@@ -34,7 +34,7 @@ const Adminprofile = () => {
     e.preventDefault();
     try {
       // Make a PATCH request to the backend API endpoint to change the password
-      const response = await axios.patch('https://aucitydbserver.onrender.com/api/change-password', {
+      const response = await axios.patch('https://livemarket-trade-server.onrender.com/api/change-password', {
         email: adminEmail,
         oldPassword,
         newPassword

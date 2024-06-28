@@ -39,7 +39,7 @@ const mainWithdrawalBalance = parseFloat(localStorage.getItem('mainWithdrawalBal
 
   const fetchEarnings = async () => {
     try {
-      const response = await axios.get(`https://aucitydbserver.onrender.com/api/earnings/:userId`);
+      const response = await axios.get(`https://livemarket-trade-server.onrender.com/api/earnings/:userId`);
       setEarnings(response.data.earnings);
     } catch (error) {
       console.error('Error fetching earnings:', error);
