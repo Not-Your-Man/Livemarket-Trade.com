@@ -12,6 +12,7 @@ import Faq from './Faq';
 
 
 const Home = () => {
+
   return (
    <div className='bg-black md:mt-5 md:pt-0 pt-24px w-[100%] p-0 m-0'>
       <Nav/> 

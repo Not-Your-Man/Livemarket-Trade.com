@@ -82,7 +82,7 @@ const Footer = () => {
                                 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd">
                                 </path>
                             </svg>
-                           <Link to='/Advantages'><p className="text-sm capitalize">testimonials</p></Link> 
+                           <Link to='/Advantages'><p className="text-sm capitalize">Products</p></Link> 
                         </div>
                         <div className="flex hover:text-white items-center my-2 default_pointer_cs default_pointer_land">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-2 text-white">

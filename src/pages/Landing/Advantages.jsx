@@ -3,7 +3,7 @@ import fg from "../../components/assets/images/fpimg.webp"
 
 const Advantages = () => {
   return (
-    <div className='py-10 md:py-0'>
+    <div className='py-10 md:py-0 bg-black'>
         <div>
             <div className="inner-cont w-full  px-5 default_cursor_cs default_cursor_land">
                 <div className="smaller_text">

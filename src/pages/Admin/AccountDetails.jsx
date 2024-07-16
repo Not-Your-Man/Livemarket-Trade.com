@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom'; 
+import PropTypes from 'prop-types'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import Logo from "../../components/assets/common/Logo";
 
 function AccountDetails({ onDeposit }) {
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode])
+
   // Inside your functional component
   AccountDetails.propTypes = {
     onDeposit: PropTypes.func.isRequired,
@@ -53,15 +67,26 @@ function AccountDetails({ onDeposit }) {
 
   return (
     
-    <div className="flex justify-center items-center h-screen">
-      
-      <div className="bg-white rounded-lg shadow-md p-6 text-black w-96">
-      <button onClick={handleBack} className="absolute top-4 left-4 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <form onSubmit={handleSubmit}>
+    <div className='dark:bg-gray-900 shadow-md'>
+    
+    <div className="flex justify-between items-center p-4 dark:bg-gray-800 shadow-md">
+          <div className="text-xl md:text-xl font-bold pr-4">  
+          <Link to='/'><Logo/></Link>
+          </div>
+          <div className="flex justify-center space-x-4">
+          <Link to="/admin" className="text-gray-600 dark:text-gray-300">Dashboard</Link>
+            <Link to="/dmin-profile" className=" text-gray-600 dark:text-gray-300 rounded px-2 py-1">Profile</Link>
+          </div>
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full"
+          >
+            <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
+          </button>
+        </div>
+   {/* PROFILE CONTENT */}
+   <div className="flex flex-col items-center justify-center pt-[-20]">
+   <form className='mt-20' onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="btcWallet" className="block text-sm font-medium text-gray-700">
               BTC Wallet
@@ -121,8 +146,11 @@ function AccountDetails({ onDeposit }) {
         {successMessage && <div className="text-green-500">{successMessage}</div>}
         {/* Display error message */}
         {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-      </div>
-    </div>
+ {/*footer */}
+ <div className='flex justify-center text-base text-sm mt-40'>Livemarket-Trade.com All rights reserverd.</div>
+</div></div>
+       
+      
   );
 }
 

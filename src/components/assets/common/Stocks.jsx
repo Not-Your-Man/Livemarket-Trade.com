@@ -21,8 +21,8 @@ function Stocks() {
           "style": "1",
           "locale": "en",
           "enable_publishing": false,
-          "backgroundColor": "rgba(0, 0, 0, 1)",
-          "gridColor": "rgba(0, 0, 0, 0.06)",
+          "backgroundColor": "transparent",
+          "gridColor": "transparent",
           "allow_symbol_change": true,
           "calendar": false,
           "support_host": "https://www.tradingview.com"
@@ -35,8 +35,7 @@ function Stocks() {
   return (
     <div className="tradingview-widget-container" ref={container}>
       <div className="tradingview-widget-container__widget"></div>
-      <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Track all markets on TradingView</span></a></div>
-    </div>
+     </div>
   );
 }
 

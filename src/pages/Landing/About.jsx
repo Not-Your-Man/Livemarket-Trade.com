@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className='h-[90vh] py-20 md:px-10 px-5 font-Poppins'>
+    <div className=' bg-black h-[90vh] py-20 md:px-10 px-5 font-Poppins'>
         <div className='flex md:justify-center'>
             <div className="bg-white/10 capitalize flex item-center font-semibold px-3 py-3 rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff" 

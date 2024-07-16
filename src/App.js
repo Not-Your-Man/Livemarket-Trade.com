@@ -15,6 +15,7 @@ import Adminprofile from "./pages/Admin/Adminprofile";
 import Adminlogin from "./pages/Admin/Adminlogin";
 import UpdateEarnings from "./pages/Admin/UpdateEarnings";
 import PrivateRoute from './PrivateRoute';
+import Status from './pages/Admin/Status';
 
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/Acct" element={<PrivateRoute children={<AccountDetails />} />} />
           <Route path="/admin-profile" element={<PrivateRoute children={< Adminprofile />} />} />
           <Route path="/Earnings" element={<PrivateRoute children={< UpdateEarnings/>} />} />
+          <Route path="/Status" element={<PrivateRoute children={< Status/>} />} />
           <Route path="/admin-login" element={<Adminlogin/>} />
          
       </Routes>

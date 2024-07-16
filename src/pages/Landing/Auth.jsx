@@ -123,6 +123,7 @@ const handleLogin = () => {
 
     // Dispatch the action to update Redux state with user details
     dispatch(setUserDetails(userDetails));
+    localStorage.setItem('userId', userDetails.id);
       navigate('/dashboard'); // Navigate to dashboard when login is successful
     })
     .catch(error => {
