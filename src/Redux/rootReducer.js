@@ -3,6 +3,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import commonReducer from "./commonReducer";
 import authReducer from "./authReducer";
+import transactionReducer from "./transactionReducer";
 
 const persistConfig = {
   // at what point in our reducer do we want to start storing
@@ -12,7 +13,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  ransactionData: transactionReducer,
   common: commonReducer,
   auth: authReducer,
 });
 export default persistReducer(persistConfig, rootReducer, authReducer);
+
+

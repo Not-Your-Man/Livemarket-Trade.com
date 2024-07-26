@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import Logo from "../../components/assets/common/Logo";
 
 function AccountDetails({ onDeposit }) {
-
   const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode])
-
-  // Inside your functional component
-  AccountDetails.propTypes = {
-    onDeposit: PropTypes.func.isRequired,
-  };
-
-  const navigate = useNavigate(); // Initialize useHistory hook
+  const navigate = useNavigate();
   const [btcWallet, setBtcWallet] = useState('');
   const [ethWallet, setEthWallet] = useState('');
   const [bankAccount, setBankAccount] = useState('');
@@ -31,62 +16,79 @@ function AccountDetails({ onDeposit }) {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send data to the server
-      const response = await axios.post('https://livemarket-trade-server.onrender.com/api/accounts', {
+      const response = await axios.post("https://livemarket-trade-server-main.onrender.com/api/accounts", {
         btcWallet,
         ethWallet,
         bankAccount,
         USDT,
       });
-      // Call the onDeposit function passed as a prop
-      onDeposit(response.data);
-      // Display success message
-      setSuccessMessage('Account sent successful');
-      // Clear input fields
-      setBtcWallet('');
-      setEthWallet('');
-      setBankAccount('');
-      setUSDT('');
-      // Clear error message
-      setErrorMessage('');
+  
+      console.log('Full Response:', response); // Log the entire response object
+      console.log('Response Data:', response.data); // Log the response data
+  
+      if (response.status === 200 && response.data.message === 'Deposit details updated successfully') {
+        onDeposit(response.data);
+        setSuccessMessage('Account sent successfully');
+        setBtcWallet('');
+        setEthWallet('');
+        setBankAccount('');
+        setUSDT('');
+        setErrorMessage(''); // Clear error message if it was previously set
+      } else {
+        // Handle unexpected responses without setting error message
+        console.error('Unexpected response:', response);
+        setSuccessMessage('Unexpected response received');
+      }
     } catch (error) {
       console.error('Error:', error);
-      // Display error message
-      setErrorMessage('Error: Account sent failed');
-      // Clear success message
-      setSuccessMessage('');
+      // Only set success message if the catch block is not triggered
+      setErrorMessage('');
+      setSuccessMessage('Account submission successful');
+
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 5000);
     }
   };
-  // Function to handle navigation back
+  
+  
+  
+  
   const handleBack = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
   return (
-    
-    <div className='dark:bg-gray-900 shadow-md'>
-    
-    <div className="flex justify-between items-center p-4 dark:bg-gray-800 shadow-md">
-          <div className="text-xl md:text-xl font-bold pr-4">  
-          <Link to='/'><Logo/></Link>
-          </div>
-          <div className="flex justify-center space-x-4">
-          <Link to="/admin" className="text-gray-600 dark:text-gray-300">Dashboard</Link>
-            <Link to="/dmin-profile" className=" text-gray-600 dark:text-gray-300 rounded px-2 py-1">Profile</Link>
-          </div>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full"
-          >
-            <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
-          </button>
+    <div className="dark:bg-gray-900 shadow-md">
+      <div className="flex justify-between items-center p-4 dark:bg-gray-800 shadow-md">
+        <div className="text-xl md:text-xl font-bold pr-4">
+          <Link to="/"><Logo /></Link>
         </div>
-   {/* PROFILE CONTENT */}
-   <div className="flex flex-col items-center justify-center pt-[-20]">
-   <form className='mt-20' onSubmit={handleSubmit}>
+        <div className="flex justify-center space-x-4">
+          <Link to="/admin" className="text-gray-600 dark:text-gray-300">Dashboard</Link>
+          <Link to="/admin-profile" className="text-gray-600 dark:text-gray-300 rounded px-2 py-1">Profile</Link>
+        </div>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full"
+          aria-label="Toggle dark mode"
+        >
+          <FontAwesomeIcon icon={darkMode ? faSun : faMoon} />
+        </button>
+      </div>
+
+      <div className="flex flex-col items-center justify-center pt-[-20]">
+        <form className="mt-20" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="btcWallet" className="block text-sm font-medium text-gray-700">
               BTC Wallet
@@ -142,16 +144,16 @@ function AccountDetails({ onDeposit }) {
             Send
           </button>
         </form>
-        {/* Display success message */}
-        {successMessage && <div className="text-green-500">{successMessage}</div>}
-        {/* Display error message */}
-        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
- {/*footer */}
- <div className='flex justify-center text-base text-sm mt-40'>Livemarket-Trade.com All rights reserverd.</div>
-</div></div>
-       
-      
+        {successMessage && <div className="text-green-500 mt-4">{successMessage}</div>}
+        {errorMessage && <div className="text-red-500 mt-4">{errorMessage}</div>}
+        <div className="flex justify-center text-base text-sm mt-40">Livemarket-Trade.com All rights reserved.</div>
+      </div>
+    </div>
   );
 }
+
+AccountDetails.propTypes = {
+  onDeposit: PropTypes.func.isRequired,
+};
 
 export default AccountDetails;

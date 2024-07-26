@@ -8,15 +8,31 @@ import "react-toastify/dist/ReactToastify.css";
 import '../../../index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 import Stocks from '../../../components/assets/common/Stocks';
 import Logo from '../../../components/assets/common/Logo';
 import MeterBar from '../../../MeterBar';
 import MeterBarRed from '../../../MeterBar-Red';
-import { FaCoins, FaChartPie,FaCashRegister,FaMoneyBill } from "react-icons/fa";
+import { FaCoins, FaChartPie, FaCashRegister, FaMoneyBill } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
+//import { addTransaction } from "./transactionReducer";
 
 const Deposit = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [placement, setPlacement] = useState("left");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [depositHistory, setDepositHistory] = useState([]);
+  const [mainAccountBalance, setMainAccountBalance] = useState(0);
+  const [depositBalance, setDepositBalance] = useState(0);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("btc");
+  const [amt, setAmt] = useState('');
+  const [transactions, setTransactions] = useState([]);
+
+
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.auth.user.email);
 
   useEffect(() => {
     if (darkMode) {
@@ -26,104 +42,90 @@ const Deposit = () => {
     }
   }, [darkMode]);
 
-//Deposit functionconst Deposit = () => {
-  const [amt, setAmt] = useState("");
-  const [open, setOpen] = useState(false);
-  const [placement, setPlacement] = useState("left");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State variable for success message
- const [depositHistory, setDepositHistory] = useState([]);
- const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("btc");
- // State to manage transaction history
- const [transactions, setTransactions] = useState(() => {
-  const storedTransactions = localStorage.getItem("transactions");
-  return storedTransactions ? JSON.parse(storedTransactions) : [];
-});
-
- const handleDeposit = () => {
-  setIsModalOpen(false);
-  setShowSuccessMessage(true);
-  message.success("Payment Successful");
-  const amount = parseFloat(amt);
-  setMainAccountBalance(prevBalance => prevBalance + amount);
-  setDepositBalance(prevBalance => prevBalance + amount);
-
-  const transactionDetails = depositAction(amount); // Pass the deposited amount
-  setTransactions([...transactions, transactionDetails]);
-};
-
-const depositAction = (amount) => { // Receive the deposited amount as a parameter
-  const transactionDetails = {
-    id: Math.random().toString(36).substr(2, 9),
-    amount: amount, // Use the deposited amount
-    time: new Date().toLocaleString()
+  const onAmtChange = (e) => {
+    setAmt(e.target.value);
   };
-  return transactionDetails;
-};
 
-const handleClearHistory = () => {
-  localStorage.removeItem("transactions"); // Remove transaction history from local storage
-  setTransactions([]); // Clear transaction history in state
-};
   
-const [address, setAddress] = useState({
-  btc: 'Bitcoin Address...',
-  eth: 'Ethereum Address...',
-  bank: 'Bank Account...',
-  USDT: 'USDT Address...',
-});
-// In the other page/component
-const mainWithdrawalBalance = parseFloat(localStorage.getItem('mainWithdrawalBalance')) || 0;
 
-useEffect(() => {
-  // Fetch initial deposit details from the server
-  const fetchDepositDetails = async () => {
+
+  const handleDeposit = async () => {
+    setIsModalOpen(false);
+    setShowSuccessMessage(false);
+    const amount = parseFloat(amt);
+  
+    if (isNaN(amount) || amount <= 0) {
+      message.error("Invalid amount. Please enter a valid deposit amount.");
+      return;
+    }
+  
+    if (!email) {
+      message.error("User email is not available. Please log in.");
+      return;
+    }
+  
+    const axiosInstance = axios.create({
+      timeout: 5000,
+    });
+  
     try {
-      const response = await axios.get('https://livemarket-trade-server.onrender.com/api/deposit-details');
-      const depositDetails = response.data;
-      // Update the address state with the fetched deposit details
-      setAddress({
-        btc: depositDetails.btcWallet || 'Bitcoin Address...',
-        eth: depositDetails.ethWallet || 'Ethereum Address...',
-        bank: depositDetails.bankAccount || 'Bank Account...',
-        USDT: depositDetails.USDT || 'USDT Address...',
+      console.log('Sending request to backend with:', { email, deposits: amount });
+  
+      const response = await axiosInstance.post("https://livemarket-trade-server-main.onrender.com/api/deposit", { email, amount: amount }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+  
+      const depositAction = (amount) => ({
+        id: Math.random().toString(36).substr(2, 9),
+        amount: amount,
+        time: new Date().toLocaleString()
+      });
+      const transactionDetails = depositAction(amount);
+  
+      setTransactions([...transactions, transactionDetails]);
+  
+      setShowSuccessMessage(true);
+      message.success("Payment Successful");
     } catch (error) {
-      console.error('Error fetching deposit details:', error);
+      console.error('Error storing deposit in backend:', error);
+      message.error("Failed to deposit. Please try again.");
     }
   };
-
-  fetchDepositDetails();
-}, []);
-
- const [mainAccountBalance, setMainAccountBalance] = useState(() => {
-  const storedBalance = localStorage.getItem("mainAccountBalance");
-  return storedBalance ? parseFloat(storedBalance) : 0;
-});
-
-const [depositBalance, setDepositBalance] = useState(() => {
-  const storedBalance = localStorage.getItem("depositBalance");
-  return storedBalance ? parseFloat(storedBalance) : 0;
-});
-
-    const [storedBalance, setStoredBalance] = useState(() => {
-  const storedBalance = localStorage.getItem("mainAccountBalance");
-  return storedBalance ? parseFloat(storedBalance) : 0;
-});
-
-    useEffect(() => {
-      // Save the main account balance to localStorage whenever it changes
-      localStorage.setItem("mainAccountBalance", mainAccountBalance.toString());
-    }, [mainAccountBalance]);
   
-    useEffect(() => {
-      // Save the deposit balance to localStorage whenever it changes
-      localStorage.setItem("depositBalance", depositBalance.toString());
-      localStorage.setItem("transactions", JSON.stringify(transactions)); // Save transaction history to local storage
-    }, [depositBalance, transactions]);
+  
 
-   // Get the main account balance from localStorage or set it to 0 if it doesn't exist
+  const handleClearHistory = () => {
+    setTransactions([]);
+  };
 
-   
+  const [address, setAddress] = useState({
+    btc: 'Bitcoin Address...',
+    eth: 'Ethereum Address...',
+    bank: 'Bank Account...',
+    USDT: 'USDT Address...',
+  });
+
+  useEffect(() => {
+    const fetchDepositDetails = async () => {
+      try {
+        const response = await axios.get("https://livemarket-trade-server-main.onrender.com/api/deposit-details");
+        const depositDetails = response.data;
+        setAddress({
+          btc: depositDetails.btcWallet || 'Bitcoin Address...',
+          eth: depositDetails.ethWallet || 'Ethereum Address...',
+          bank: depositDetails.bankAccount || 'Bank Account...',
+          USDT: depositDetails.USDT || 'USDT Address...',
+        });
+      } catch (error) {
+        console.error('Error fetching deposit details:', error);
+      }
+    };
+
+    fetchDepositDetails();
+  }, []);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -134,10 +136,6 @@ const [depositBalance, setDepositBalance] = useState(() => {
     setPlacement(e.target.value);
   };
 
-  const onAmtChange = (e) => {
-    setAmt(e.target.value);
-  };
-  
   const handlePaymentMethodChange = (e) => {
     setSelectedPaymentMethod(e.target.value);
   };
@@ -149,17 +147,6 @@ const [depositBalance, setDepositBalance] = useState(() => {
     } else {
       setIsModalOpen(true);
     }
-  };
-   const handleOk = () => {
-  
-    setIsModalOpen(false);
-    setShowSuccessMessage(true); // Show success message when payment is successful
-    message.success("Payment Successful"); // Display success message using antd message component
-    const amount = parseFloat(amt);
-    setMainAccountBalance(prevBalance => prevBalance + amount); // Update main account balance
-    setDepositBalance(prevBalance => prevBalance + amount); // Update deposit balance
-    const transactionDetails = depositAction(amount); // Pass the deposited amount
-  setTransactions([...transactions, transactionDetails]); 
   };
 
   const handleCancel = () => {
@@ -175,6 +162,7 @@ const [depositBalance, setDepositBalance] = useState(() => {
   const handleClose = () => {
     setOpenBank(false);
   };
+
 
 
   return (
@@ -294,7 +282,7 @@ const [depositBalance, setDepositBalance] = useState(() => {
                 <Modal
                   title="Complete Deposit"
                   open={isModalOpen}
-                  onOk={handleOk}
+                  //onOk={handleOk}
                   onCancel={handleCancel}
                   okButtonProps={{ className: 'bg-red-500' }} // Add this line
                 >

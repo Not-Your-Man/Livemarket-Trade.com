@@ -37,7 +37,7 @@ const [open, setOpen] = useState(false);
 
   const fetchUserDetails = async () => {
     try {
-      const response = await axios.get('https://livemarket-trade-server.onrender.com/api/users');
+      const response = await axios.get("https://livemarket-trade-server-main.onrender.com/api/users");
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching user details:', error);
@@ -54,7 +54,7 @@ const [open, setOpen] = useState(false);
   const handleBalanceUpdate = async (email) => {
     try {
       const newBalance = balances[email];
-      await axios.post('https://livemarket-trade-server.onrender.com/api/update-user-balance', { email, mainAccountBalance: newBalance });
+      await axios.post("https://livemarket-trade-server-main.onrender.com/api/update-user-balance", { email, mainAccountBalance: newBalance });
       
       // Update the local state or re-fetch users after successful update
       setUsers(users.map(user => user.email === email ? { ...user, mainAccountBalance: newBalance } : user));
@@ -172,8 +172,9 @@ const [open, setOpen] = useState(false);
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold">Phone</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">Password</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold">Balance</th>
-                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">deposit</th>
-                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold whitespace-nowrap">top-up</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">User-deposit</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold whitespace-nowrap">Top-up</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold whitespace-nowrap">Fund</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-red-400 bg-inherit text-center font-semibold">Registered</th>
               </tr>
             </thead>
@@ -186,6 +187,7 @@ const [open, setOpen] = useState(false);
                   <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">{user.phone}</td>
                   <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300">{user.password}</td>
                   <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">${user.mainAccountBalance}</td>
+                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">${user.deposits}</td>
                   <td className='py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300 text-black'>
                   <input
                   className='p-1 w-10'

@@ -8,6 +8,13 @@ import {
   SET_ADUSER,
 } from "./actionTypes";
 
+export const addTransaction = (transactionDetails) => {
+  return {
+    type: 'ADD_TRANSACTION',
+    payload: transactionDetails
+  };
+};
+
 export const setWalet = (wallet) => ({
   type: SET_WALLET,
   payload: wallet,

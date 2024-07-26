@@ -28,7 +28,7 @@ const Status = () => {
   const fetchUserDetails = async () => {
     try {
       // Make a GET request to the backend endpoint to fetch user details
-      const response = await fetch('https://livemarket-trade-server.onrender.com/api/users');
+      const response = await fetch("https://livemarket-trade-server-main.onrender.com/api/users");
       if (!response.ok) {
         throw new Error('Failed to fetch user details');
       }
@@ -53,7 +53,7 @@ const Status = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`https://livemarket-trade-server.onrender.com/api/users/${selectedUser._id}/updateStatus`, { status })
+    axios.post(`https://livemarket-trade-server-main.onrender.com/api/users/${selectedUser._id}/updateStatus`, { status })
       .then(response => {
         alert('Status updated successfully!');
       })
