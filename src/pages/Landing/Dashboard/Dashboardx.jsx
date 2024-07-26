@@ -63,6 +63,7 @@ const Dashboardx = () => {
         ...user,
         mainAccountBalance: response.data.mainAccountBalance,
         deposits: response.data.deposits,
+        Earnings: response.data.Earnings,
       });
     } catch (error) {
       console.error('Error fetching user details:', error);
@@ -73,18 +74,7 @@ const Dashboardx = () => {
 
   const [earnings, setEarnings] = useState(null);
 
-  useEffect(() => {
-    fetchEarnings();
-  }, []);
-
-  const fetchEarnings = async () => {
-    try {
-      const response = await axios.get("https://livemarket-trade-server-main.onrender.com/api/earnings");
-      setEarnings(response.data.earnings);
-    } catch (error) {
-      console.error('Error fetching earnings:', error);
-    }
-  };
+ 
 
   const showDrawer = () => {
     setOpen(true);
@@ -151,7 +141,7 @@ const Dashboardx = () => {
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex-1">
               <div className="text-xl font-bold">Earnings/Day</div>
               <div className="text-4xl font-bold flex justify-between items-center">
-                ${earnings}
+                ${user.Earnings}
                 <span className='float-right'>
                   <FaMoneyBill className="mt-4 " />
                 </span>

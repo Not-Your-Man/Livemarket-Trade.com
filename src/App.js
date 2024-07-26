@@ -9,6 +9,7 @@ import Benefits from "./pages/Landing/Benefits";
 import Advantages from "./pages/Landing/Advantages";
 import Faq from "./pages/Landing/Faq";
 import Profilex from "./pages/Landing/Dashboard/Profilex";
+import ProfileAuth from "./pages/Landing/Dashboard/ProfileAuth";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AccountDetails from "./pages/Admin/AccountDetails";
 import Adminprofile from "./pages/Admin/Adminprofile";
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/Advantages" element={<Advantages />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/Profile" element={<Profilex />} />
+        <Route path="/Pass-Change" element={<ProfileAuth />} /> 
           <Route
         path="/admin"
         element={<PrivateRoute children={<AdminDashboard />} />} // Protected route

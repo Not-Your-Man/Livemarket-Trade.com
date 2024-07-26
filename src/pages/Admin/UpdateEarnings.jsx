@@ -58,9 +58,9 @@ const UpdateEarnings = () => {
       await axios.post("https://livemarket-trade-server-main.onrender.com/api/update-Earnings", { email, Earnings: newEarnings });
       
       // Update the local state or re-fetch users after successful update
-      setUsers(users.map(user => user.email === email ? { ...user, mainAccountBalance: newEarnings } : user));
+      setUsers(users.map(user => user.email === email ? { ...user, Earnings: newEarnings } : user));
     } catch (error) {
-      console.error('Error updating balance:', error);
+      console.error('Error updating earnings:', error);
     }
   };
 
@@ -107,49 +107,33 @@ const UpdateEarnings = () => {
           <table className="w-full text-gray-800 border-collapse bg-inherit h-full">
             <thead className=" text-white">
               <tr>
-                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold">Name</th>
-                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">Email</th>
-               
+                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">Name</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold">Email</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold">Earnings</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-400 bg-inherit text-center font-semibold whitespace-nowrap">Top-up</th>
                 <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-400 bg-inherit text-center font-semibold whitespace-nowrap">Fund</th>
-                <th className="py-2 sm:py-3 px-2 sm:px-4 border-b border-red-400 bg-inherit text-center font-semibold">Registered</th>
               </tr>
             </thead>
            
               <tbody>
               {users.map((user) => (
                 <tr key={user._id} className="hover:bg-inherit text-white">
-                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">{user.name}</td>
-                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300">{user.email}</td>
-                 
-                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">${user.Earnings}</td>
-                
-                  <td className='py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300 text-black'>
+                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300">{user.name}</td>
+                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">{user.email}</td>
+                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300">${user.Earnings}</td>
+                  <td className='py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300 text-black'>
                   <input
                   className='p-1 w-10'
                   type="number"
                   value={earnings[user.email] === undefined ? user.Earnings : earnings[user.email]}
-                  onChange={(e) => handleEarnings(user.email, parseFloat(e.target.value) || 0)}
+                  onChange={(e) => handleEarningsChange(user.email, parseFloat(e.target.value) || 0)}
                   placeholder="Enter new earnings"
                 />
                   </td>
-                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-green-300">
+                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-blue-300">
                     <button className='p-1 w-12 bg-green-300 shadow-md rounded-sm' onClick={() => handleEarnings(user.email)}>Fund</button>
                   </td>
-                  <td className="py-2 sm:py-3 px-2 sm:px-4 border-b border-red-300 text-center">
-                    <span
-                      className={`px-2 py-1 rounded-full text-white ${
-                        user.status === "Progress"
-                          ? "bg-green-500"
-                          : user.status === "Open"
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                    >
-                      {user.status}
-                    </span>
-                  </td>
+                 
                 </tr>
               ))}
             </tbody>
