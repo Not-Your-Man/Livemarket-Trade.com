@@ -68,7 +68,7 @@ const Auth = () => {
   const handleSignup = () => {
     setLoading(true);
   
-    fetch("https://livemarket-trade-server-main.onrender.com/api/signup", {
+    fetch("https://livemarket-trade-server.onrender.com/api/signup", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ const Auth = () => {
 
 const handleLogin = () => {
   setLoading(true); // Set loading to true when starting the login process
-  fetch("https://livemarket-trade-server-main.onrender.com/api/login", {
+  fetch("https://livemarket-trade-server.onrender.com/api/login", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
